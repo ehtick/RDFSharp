@@ -33,7 +33,7 @@ public class RDFQueryExceptionTest
         }
         catch (RDFQueryException mex)
         {
-            Assert.IsTrue(mex.Message.Contains("RDFSharp.Query.RDFQueryException", StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(mex.Message.Contains("RDFSharp.Query.RDFQueryException"));
         }
     }
 

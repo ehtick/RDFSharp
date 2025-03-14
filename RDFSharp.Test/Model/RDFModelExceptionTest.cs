@@ -33,7 +33,7 @@ public class RDFModelExceptionTest
         }
         catch (RDFModelException mex)
         {
-            Assert.IsTrue(mex.Message.Contains("RDFSharp.Model.RDFModelException", StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(mex.Message.Contains("RDFSharp.Model.RDFModelException"));
         }
     }
 

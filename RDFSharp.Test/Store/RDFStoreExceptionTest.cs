@@ -33,7 +33,7 @@ public class RDFStoreExceptionTest
         }
         catch (RDFStoreException mex)
         {
-            Assert.IsTrue(mex.Message.Contains("RDFSharp.Store.RDFStoreException", StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(mex.Message.Contains("RDFSharp.Store.RDFStoreException"));
         }
     }
 

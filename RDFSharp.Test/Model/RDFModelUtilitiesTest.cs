@@ -148,10 +148,10 @@ public class RDFModelUtilitiesTest
         string output = RDFModelUtilities.ASCII_To_Unicode(input);
 
         Assert.IsNotNull(output);
-        Assert.AreEqual(-1, output.IndexOf("\\U", StringComparison.Ordinal));
-        Assert.AreEqual(-1, output.IndexOf("\\u", StringComparison.Ordinal));
-        Assert.IsTrue(output.IndexOf("😃", StringComparison.Ordinal) > -1);
-        Assert.IsTrue(output.IndexOf('~', StringComparison.Ordinal) > -1);
+        Assert.IsFalse(output.Contains("\\U"));
+        Assert.IsFalse(output.Contains("\\u"));
+        Assert.IsTrue(output.Contains("😃"));
+        Assert.IsTrue(output.Contains('~'));
     }
 
     [DataTestMethod]
@@ -165,10 +165,10 @@ public class RDFModelUtilitiesTest
         string output = RDFModelUtilities.ASCII_To_Unicode(input);
 
         Assert.IsNotNull(output);
-        Assert.AreEqual(-1, output.IndexOf("\\U", StringComparison.Ordinal));
-        Assert.AreEqual(-1, output.IndexOf("\\u", StringComparison.Ordinal));
-        Assert.IsTrue(output.IndexOf('~', StringComparison.Ordinal) > -1);
-        Assert.IsTrue(output.IndexOf('Δ', StringComparison.Ordinal) > -1);
+        Assert.IsFalse(output.Contains("\\U"));
+        Assert.IsFalse(output.Contains("\\u"));
+        Assert.IsTrue(output.Contains('~'));
+        Assert.IsTrue(output.Contains('Δ'));
     }
 
     [DataTestMethod]
@@ -178,9 +178,9 @@ public class RDFModelUtilitiesTest
         string output = RDFModelUtilities.ASCII_To_Unicode(input);
 
         Assert.IsNotNull(output);
-        Assert.AreEqual(-1, output.IndexOf("\\U", StringComparison.Ordinal));
-        Assert.AreEqual(-1, output.IndexOf("\\u", StringComparison.Ordinal));
-        Assert.IsTrue(output.IndexOf("😃", StringComparison.Ordinal) > -1);
+        Assert.IsFalse(output.Contains("\\U"));
+        Assert.IsFalse(output.Contains("\\u"));
+        Assert.IsTrue(output.Contains("😃"));
     }
 
     [DataTestMethod]
@@ -190,8 +190,8 @@ public class RDFModelUtilitiesTest
         string output = RDFModelUtilities.ASCII_To_Unicode(input);
 
         Assert.IsNotNull(output);
-        Assert.AreEqual(-1, output.IndexOf("\\U", StringComparison.Ordinal));
-        Assert.AreEqual(-1, output.IndexOf("\\u", StringComparison.Ordinal));
+        Assert.IsFalse(output.Contains("\\U"));
+        Assert.IsFalse(output.Contains("\\u"));
     }
 
     [DataTestMethod]
