@@ -13,23 +13,8 @@ jobs:
     - name: Setup
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x 
+        dotnet-version: 8
     - name: Build
       run: dotnet build -c Release
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
-  windows-2019:
-    runs-on: windows-2019
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-    - name: Restore
-      run: nuget restore RDFSharp.sln
-    - name: Build
-      run: msbuild RDFSharp.sln -t:rebuild -property:Configuration=Release
-    - name: Test
-      run: vstest.console.exe RDFSharp.Test.dll /logger:console;verbosity=normal
