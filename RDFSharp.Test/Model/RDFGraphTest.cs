@@ -85,7 +85,7 @@ public class RDFGraphTest
         RDFGraph graph;
         using (graph = new RDFGraph([
                    new RDFTriple(new RDFResource("http://subj/"),new RDFResource("http://pred/"),new RDFResource("http://obj/")),
-                   new RDFTriple(new RDFResource("http://subj/"),new RDFResource("http://pred/"),new RDFPlainLiteral("lit")) ])) 
+                   new RDFTriple(new RDFResource("http://subj/"),new RDFResource("http://pred/"),new RDFPlainLiteral("lit")) ]))
         {
             Assert.IsFalse(graph.Disposed);
             Assert.IsNotNull(graph.IndexedTriples);
@@ -1277,7 +1277,7 @@ public class RDFGraphTest
         RDFTriple triple1 = new RDFTriple(new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFPlainLiteral("lit"));
         RDFTriple triple2 = new RDFTriple(new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"));
         graph1.AddTriple(triple1).AddTriple(triple2);
-            
+
         RDFGraph intersect12 = graph1.IntersectWith(null);
         Assert.IsNotNull(intersect12);
         Assert.AreEqual(0, intersect12.TriplesCount);
@@ -1290,7 +1290,7 @@ public class RDFGraphTest
         RDFTriple triple1 = new RDFTriple(new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFPlainLiteral("lit"));
         RDFTriple triple2 = new RDFTriple(new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"));
         graph1.AddTriple(triple1).AddTriple(triple2);
-            
+
         RDFGraph intersect12 = graph1.IntersectWith(graph1);
         Assert.IsNotNull(intersect12);
         Assert.AreEqual(2, intersect12.TriplesCount);
@@ -1557,13 +1557,13 @@ public class RDFGraphTest
         //triples with a predicate ending with "/" will loose this character once abbreviated:
         //this is correct (being a glitch of RDF/XML specs) so at the end the graphs will differ
         if (format == RDFModelEnums.RDFFormats.RdfXml)
-        { 
+        {
             Assert.IsFalse(graph2.Equals(graph1));
             Assert.AreEqual(0, graph2.SelectTriplesByPredicate(new RDFResource("http://ex/pred/")).TriplesCount);
             Assert.AreEqual(2, graph2.SelectTriplesByPredicate(new RDFResource("http://ex/pred")).TriplesCount);
         }
         else
-        { 
+        {
             Assert.IsTrue(graph2.Equals(graph1));
         }
     }
@@ -3086,12 +3086,12 @@ public class RDFGraphTest
         await graph.ToFileAsync(format, Path.Combine(Environment.CurrentDirectory, $"RDFGraphTest_ShouldExportToFileAsync{fileExtension}"));
 
         Assert.IsTrue(File.Exists(Path.Combine(Environment.CurrentDirectory, $"RDFGraphTest_ShouldExportToFileAsync{fileExtension}")));
-        Assert.IsTrue((File.ReadAllText(Path.Combine(Environment.CurrentDirectory, $"RDFGraphTest_ShouldExportToFileAsync{fileExtension}"))).Length > 100);
+        Assert.IsTrue((await File.ReadAllTextAsync(Path.Combine(Environment.CurrentDirectory, $"RDFGraphTest_ShouldExportToFileAsync{fileExtension}"))).Length > 100);
     }
 
     [TestMethod]
     public async Task ShouldRaiseExceptionOnExportingToNullOrEmptyFilepathAsync()
-        => await Assert.ThrowsExactlyAsync<RDFModelException>(async () => await new RDFGraph().ToFileAsync(RDFModelEnums.RDFFormats.NTriples, null));
+        => await Assert.ThrowsExactlyAsync<RDFModelException>(() => new RDFGraph().ToFileAsync(RDFModelEnums.RDFFormats.NTriples, null));
 
     [DataTestMethod]
     [DataRow(RDFModelEnums.RDFFormats.NTriples)]
@@ -3112,7 +3112,7 @@ public class RDFGraphTest
 
     [TestMethod]
     public async Task ShouldRaiseExceptionOnExportingToNullStreamAsync()
-        => await Assert.ThrowsExactlyAsync<RDFModelException>(async () => await new RDFGraph().ToStreamAsync(RDFModelEnums.RDFFormats.NTriples, null));
+        => await Assert.ThrowsExactlyAsync<RDFModelException>(() => new RDFGraph().ToStreamAsync(RDFModelEnums.RDFFormats.NTriples, null));
 
     [TestMethod]
     public async Task ShouldExportToDataTableAsync()

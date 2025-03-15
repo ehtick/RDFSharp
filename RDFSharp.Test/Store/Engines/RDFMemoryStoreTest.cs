@@ -1035,7 +1035,7 @@ public class RDFMemoryStoreTest
 
         Assert.IsFalse(reifiedStore.Equals(store));
 
-        reifiedStore.UnreifyQuadruples();            
+        reifiedStore.UnreifyQuadruples();
 
         Assert.IsTrue(reifiedStore.Equals(store));
     }
@@ -1479,7 +1479,7 @@ public class RDFMemoryStoreTest
         table.Rows.Add(null, "http://subj/", "http://pred/", "http://obj/");
 
         RDFMemoryStore store = RDFMemoryStore.FromDataTable(table);
-            
+
         Assert.IsNotNull(store);
         Assert.AreEqual(1, store.QuadruplesCount);
         Assert.AreEqual(1, store[new RDFContext(), new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"), null].QuadruplesCount);
@@ -1496,7 +1496,7 @@ public class RDFMemoryStoreTest
         table.Rows.Add("", "http://subj/", "http://pred/", "http://obj/");
 
         RDFMemoryStore store = RDFMemoryStore.FromDataTable(table);
-            
+
         Assert.IsNotNull(store);
         Assert.AreEqual(1, store.QuadruplesCount);
         Assert.AreEqual(1, store[new RDFContext(), new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"), null].QuadruplesCount);
@@ -1512,7 +1512,7 @@ public class RDFMemoryStoreTest
         table.Rows.Add("http://subj/", "http://pred/", "http://obj/");
 
         RDFMemoryStore store = RDFMemoryStore.FromDataTable(table);
-            
+
         Assert.IsNotNull(store);
         Assert.AreEqual(1, store.QuadruplesCount);
         Assert.AreEqual(1, store[new RDFContext(), new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"), null].QuadruplesCount);
@@ -1529,7 +1529,7 @@ public class RDFMemoryStoreTest
         table.Rows.Add("http://ctx/", "http://subj/", "http://pred/", "http://obj/");
 
         RDFMemoryStore store = RDFMemoryStore.FromDataTable(table);
-            
+
         Assert.IsNotNull(store);
         Assert.AreEqual(1, store.QuadruplesCount);
         Assert.AreEqual(1, store[new RDFContext("http://ctx/"), new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"), null].QuadruplesCount);
@@ -1785,7 +1785,7 @@ public class RDFMemoryStoreTest
         table.Rows.Add("http://ctx/", "http://subj/", "http://pred/", "http://obj/");
 
         RDFMemoryStore store = await RDFMemoryStore.FromDataTableAsync(table);
-            
+
         Assert.IsNotNull(store);
         Assert.AreEqual(1, store.QuadruplesCount);
         Assert.AreEqual(1, store[new RDFContext("http://ctx/"), new RDFResource("http://subj/"), new RDFResource("http://pred/"), new RDFResource("http://obj/"), null].QuadruplesCount);
@@ -2599,12 +2599,12 @@ public class RDFMemoryStoreTest
         await store.ToFileAsync(format, Path.Combine(Environment.CurrentDirectory, $"RDFMemoryStoreTest_ShouldExportToFileAsync{fileExtension}"));
 
         Assert.IsTrue(File.Exists(Path.Combine(Environment.CurrentDirectory, $"RDFMemoryStoreTest_ShouldExportToFileAsync{fileExtension}")));
-        Assert.IsTrue((File.ReadAllText(Path.Combine(Environment.CurrentDirectory, $"RDFMemoryStoreTest_ShouldExportToFileAsync{fileExtension}"))).Length > 90);
+        Assert.IsTrue((await File.ReadAllTextAsync(Path.Combine(Environment.CurrentDirectory, $"RDFMemoryStoreTest_ShouldExportToFileAsync{fileExtension}"))).Length > 90);
     }
 
     [TestMethod]
     public async Task ShouldRaiseExceptionOnExportingToNullOrEmptyFilepathAsync()
-        => await Assert.ThrowsExactlyAsync<RDFStoreException>(async () => await new RDFMemoryStore().ToFileAsync(RDFStoreEnums.RDFFormats.NQuads, null));
+        => await Assert.ThrowsExactlyAsync<RDFStoreException>(() => new RDFMemoryStore().ToFileAsync(RDFStoreEnums.RDFFormats.NQuads, null));
 
     [DataTestMethod]
     [DataRow(RDFStoreEnums.RDFFormats.NQuads)]
@@ -2625,7 +2625,7 @@ public class RDFMemoryStoreTest
 
     [TestMethod]
     public async Task ShouldRaiseExceptionOnExportingToNullStreamAsync()
-        => await Assert.ThrowsExactlyAsync<RDFStoreException>(async () => await new RDFMemoryStore().ToStreamAsync(RDFStoreEnums.RDFFormats.NQuads, null));
+        => await Assert.ThrowsExactlyAsync<RDFStoreException>(() => new RDFMemoryStore().ToStreamAsync(RDFStoreEnums.RDFFormats.NQuads, null));
 
     [TestMethod]
     public async Task ShouldExportToDataTableAsync()
