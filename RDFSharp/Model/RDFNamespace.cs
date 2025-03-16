@@ -15,7 +15,6 @@
 */
 
 using System;
-using System.Text.RegularExpressions;
 
 namespace RDFSharp.Model
 {
@@ -25,11 +24,6 @@ namespace RDFSharp.Model
     public sealed class RDFNamespace : IEquatable<RDFNamespace>
     {
         #region Properties
-        /// <summary>
-        /// Regex for validation of prefixes
-        /// </summary>
-        internal static readonly Lazy<Regex> PrefixRegex = new Lazy<Regex>(() => new Regex(@"^[a-zA-Z0-9_\-]+$", RegexOptions.Compiled));
-
         /// <summary>
         /// Unique representation of the namespace
         /// </summary>
@@ -69,7 +63,7 @@ namespace RDFSharp.Model
 
             //Prefix must contain only letters/numbers and cannot be "bnode" or "xmlns"
             string finalPrefix = prefix.Trim();
-            if (!PrefixRegex.Value.Match(finalPrefix).Success)
+            if (!RDFModelShims.PrefixRegexShim.Match(finalPrefix).Success)
                 throw new RDFModelException("Cannot create RDFNamespace because \"prefix\" parameter contains unallowed characters");
             if (finalPrefix.Equals("bnode", StringComparison.OrdinalIgnoreCase) || finalPrefix.Equals("xmlns", StringComparison.OrdinalIgnoreCase))
                 throw new RDFModelException("Cannot create RDFNamespace because \"prefix\" parameter cannot be \"bnode\" or \"xmlns\"");
@@ -110,7 +104,7 @@ namespace RDFSharp.Model
             if (dereferenceUri != null &&
                   dereferenceUri.IsAbsoluteUri &&
                     !dereferenceUri.ToString().StartsWith("bnode:", StringComparison.OrdinalIgnoreCase) &&
-                      !dereferenceUri.ToString().StartsWith("xmlns:", StringComparison.OrdinalIgnoreCase))
+                    !dereferenceUri.ToString().StartsWith("xmlns:", StringComparison.OrdinalIgnoreCase))
             {
                 DereferenceUri = dereferenceUri;
             }
