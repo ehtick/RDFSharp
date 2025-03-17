@@ -48,7 +48,7 @@ namespace RDFSharp.Store
         /// <summary>
         /// Regex to detect S->P->L(PLAIN LANGUAGE)->C form of N-Quad
         /// </summary>
-        internal static readonly Lazy<Regex> SPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""@", RDFPlainLiteral.LangTagMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
+        internal static readonly Lazy<Regex> SPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""@", RDFModelShims.LanguageTagRegexMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
 
         /// <summary>
         /// Regex to detect S->P->B->L(TYPED) form of N-Quad
@@ -73,7 +73,7 @@ namespace RDFSharp.Store
         /// <summary>
         /// Regex to detect B->P->L(PLAIN LANGUAGE)->C form of N-Quad
         /// </summary>
-        internal static readonly Lazy<Regex> BPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""@", RDFPlainLiteral.LangTagMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
+        internal static readonly Lazy<Regex> BPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""@", RDFModelShims.LanguageTagRegexMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
 
         /// <summary>
         /// Regex to detect B->P->L(TYPED)->C form of N-Quad

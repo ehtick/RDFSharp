@@ -25,17 +25,29 @@ namespace RDFSharp.Model
     {
         #region Regex
 
-        private const string PrefixRegexShimMask = @"^[a-zA-Z0-9_\-]+$";
+        internal const string PrefixRegexMask = @"^[a-zA-Z0-9_\-]+$";
         internal static Regex PrefixRegexShim =>
 #if NET8_0_OR_GREATER
             PrefixRegex();
 #else
-            new Regex(PrefixRegexShimMask, RegexOptions.Compiled);
+            new Regex(PrefixRegexMask, RegexOptions.Compiled);
+#endif
+
+        internal const string SubLanguageTagRegexMask = "(-[a-zA-Z0-9]{1,8})*(--ltr|--rtl)?";
+        internal const string LanguageTagRegexMask = "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*(--ltr|--rtl)?";
+        internal static Regex LanguageTagRegexShim() =>
+#if NET8_0_OR_GREATER
+            LanguageTagRegex();
+#else
+            new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 #endif
 
 #if NET8_0_OR_GREATER
-        [GeneratedRegex(PrefixRegexShimMask)]
+        [GeneratedRegex(PrefixRegexMask)]
         private static partial Regex PrefixRegex();
+
+        [GeneratedRegex("^" + LanguageTagRegexMask + "$", RegexOptions.IgnoreCase)]
+        private static partial Regex LanguageTagRegex();
 #endif
 
         #endregion

@@ -29,13 +29,6 @@ namespace RDFSharp.Model
         /// Represents an handy plain literal for empty strings
         /// </summary>
         public static readonly RDFPlainLiteral Empty = new RDFPlainLiteral(string.Empty);
-        internal const string LangTagDirection = "(--ltr|--rtl)?";
-        internal static readonly string LangTagSubMask = string.Concat("(-[a-zA-Z0-9]{1,8})*", LangTagDirection);
-        internal static readonly string LangTagMask = string.Concat("[a-zA-Z]{1,8}", LangTagSubMask);
-        /// <summary>
-        /// Regex for validation of language tags (with support for optional direction)
-        /// </summary>
-        internal static readonly Regex LangTagRegex = new Regex(string.Concat("^", LangTagMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         /// <summary>
         /// Optional language of the literal's value
@@ -58,7 +51,7 @@ namespace RDFSharp.Model
         /// </summary>
         public RDFPlainLiteral(string value, string language) : this(value)
         {
-            if (language != null && LangTagRegex.Match(language).Success)
+            if (language != null && RDFModelShims.LanguageTagRegexShim().Match(language).Success)
                 Language = language.ToUpperInvariant();
         }
         #endregion

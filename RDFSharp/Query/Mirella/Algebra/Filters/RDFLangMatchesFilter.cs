@@ -41,7 +41,7 @@ namespace RDFSharp.Query
         /// <summary>
         /// Regex to intercept values having any language tag
         /// </summary>
-        internal static readonly Lazy<Regex> AnyLanguageRegex = new Lazy<Regex>(() => new Regex(string.Concat("@", RDFPlainLiteral.LangTagMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+        internal static readonly Lazy<Regex> AnyLanguageRegex = new Lazy<Regex>(() => new Regex(string.Concat("@", RDFModelShims.LanguageTagRegexMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase));
 
         /// <summary>
         /// Regex to intercept values having specific language tag
@@ -61,12 +61,12 @@ namespace RDFSharp.Query
             #endregion
 
             bool acceptsNoneOrAnyLanguageTag = (string.IsNullOrEmpty(language) || language == "*");
-            if (acceptsNoneOrAnyLanguageTag || RDFPlainLiteral.LangTagRegex.Match(language).Success)
+            if (acceptsNoneOrAnyLanguageTag || RDFModelShims.LanguageTagRegexShim().Match(language).Success)
             {
                 VariableName = variable.ToString();
                 Language = language?.ToUpperInvariant() ?? string.Empty;
                 if (!acceptsNoneOrAnyLanguageTag)
-                    ExactLanguageRegex = new Regex(string.Concat("@", Language, RDFPlainLiteral.LangTagSubMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    ExactLanguageRegex = new Regex(string.Concat("@", Language, RDFModelShims.SubLanguageTagRegexMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase);
             }
             else
                 throw new RDFQueryException("Cannot create RDFLangMatchesFilter because given \"language\" parameter (" + language + ") does not represent an acceptable language.");
