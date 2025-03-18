@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+using System;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace RDFSharp.Model
@@ -65,6 +67,19 @@ namespace RDFSharp.Model
         internal static Regex FourByteUnicodeRegexShim { get; }
         internal static Regex HexBinaryRegexShim { get; }
         internal static Regex OwlRationalRegexShim { get; }
+        #endregion
+
+        #region Methods
+        internal static long MD5HashShim(string input)
+        {
+            byte[] inputBytes = RDFModelUtilities.UTF8_NoBOM.GetBytes(input);
+#if NET8_0_OR_GREATER
+            return BitConverter.ToInt64(MD5.HashData(inputBytes), 0);
+#else
+            using (MD5CryptoServiceProvider md5Encryptor = new MD5CryptoServiceProvider())
+                return BitConverter.ToInt64(md5Encryptor.ComputeHash(inputBytes), 0);
+#endif
+        }
         #endregion
 
 #if NET8_0_OR_GREATER

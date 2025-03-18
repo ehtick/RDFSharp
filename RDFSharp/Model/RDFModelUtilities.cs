@@ -35,19 +35,12 @@ namespace RDFSharp.Model
     public static class RDFModelUtilities
     {
         #region Hashing
+
         /// <summary>
         /// Creates a unique long representation of the given string
         /// </summary>
         public static long CreateHash(string input)
-        {
-            #region Guards
-            if (input == null)
-                throw new RDFModelException("Cannot create hash because given \"input\" string parameter is null.");
-            #endregion
-
-            using (MD5CryptoServiceProvider md5Encryptor = new MD5CryptoServiceProvider())
-                return BitConverter.ToInt64(md5Encryptor.ComputeHash(UTF8_NoBOM.GetBytes(input)), 0);
-        }
+            => RDFModelShims.MD5HashShim(input ?? throw new RDFModelException("Cannot create hash because given \"input\" string parameter is null."));
         #endregion
 
         #region Strings
