@@ -34,7 +34,7 @@ namespace RDFSharp.Model
 #endif
 
         internal const string SubLanguageTagRegexMask = "(-[a-zA-Z0-9]{1,8})*(--ltr|--rtl)?";
-        internal const string LanguageTagRegexMask = "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*(--ltr|--rtl)?";
+        internal const string LanguageTagRegexMask = "[a-zA-Z]{1,8}" + SubLanguageTagRegexMask;
         internal static Regex LanguageTagRegexShim() =>
 #if NET8_0_OR_GREATER
             LanguageTagRegex();
