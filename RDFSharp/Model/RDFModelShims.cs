@@ -21,7 +21,7 @@ namespace RDFSharp.Model
     /// <summary>
     /// RDFModelShims represents a collector for all the shims used by the "RDFSharp.Model" namespace
     /// </summary>
-    public static partial class RDFModelShims
+    internal static partial class RDFModelShims
     {
         #region Constants
         internal const string PrefixRegexMask = @"^[a-zA-Z0-9_\-]+$";
