@@ -31,6 +31,7 @@ namespace RDFSharp.Model
         internal const string EightByteUnicodeRegexMask = @"\\U([0-9A-Fa-f]{8})";
         internal const string FourByteUnicodeRegexMask = @"\\u([0-9A-Fa-f]{4})";
         internal const string HexBinaryRegexMask = "^([0-9a-fA-F]{2})*$";
+        internal const string OwlRationalRegexMask = "^(0|(-)?([1-9])+([0-9])*)(/([1-9])+([0-9])*)?$";
         #endregion
 
         #region Ctors
@@ -43,6 +44,7 @@ namespace RDFSharp.Model
             EightByteUnicodeRegexShim = EightByteUnicodeRegex();
             FourByteUnicodeRegexShim = FourByteUnicodeRegex();
             HexBinaryRegexShim = HexBinaryRegex();
+            OwlRationalRegexShim = OwlRationalRegex();
 #else
             PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
             LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -50,6 +52,7 @@ namespace RDFSharp.Model
             EightByteUnicodeRegexShim = new Regex(EightByteUnicodeRegexMask, RegexOptions.Compiled);
             FourByteUnicodeRegexShim = new Regex(FourByteUnicodeRegexMask, RegexOptions.Compiled);
             HexBinaryRegexShim = new Regex(HexBinaryRegexMask, RegexOptions.Compiled);
+            OwlRationalRegexShim = new Regex(OwlRationalRegexMask, RegexOptions.Compiled);
 #endif
         }
         #endregion
@@ -61,6 +64,7 @@ namespace RDFSharp.Model
         internal static Regex EightByteUnicodeRegexShim { get; }
         internal static Regex FourByteUnicodeRegexShim { get; }
         internal static Regex HexBinaryRegexShim { get; }
+        internal static Regex OwlRationalRegexShim { get; }
         #endregion
 
 #if NET8_0_OR_GREATER
@@ -76,6 +80,8 @@ namespace RDFSharp.Model
         private static partial Regex FourByteUnicodeRegex();
         [GeneratedRegex(HexBinaryRegexMask)]
         private static partial Regex HexBinaryRegex();
+        [GeneratedRegex(OwlRationalRegexMask)]
+        private static partial Regex OwlRationalRegex();
 #endif
     }
 }

@@ -51,15 +51,11 @@ namespace RDFSharp.Model
         #endregion
 
         #region Strings
+
         /// <summary>
         /// UTF8 encoding which does not emit BOM (for better OS interoperability)
         /// </summary>
         internal static readonly UTF8Encoding UTF8_NoBOM = new UTF8Encoding(false);
-
-        /// <summary>
-        /// Regex to catch owl:rational typed literals
-        /// </summary>
-        internal static readonly Lazy<Regex> owlRational = new Lazy<Regex>(() => new Regex("^(0|(-)?([1-9])+([0-9])*)(/([1-9])+([0-9])*)?$", RegexOptions.Compiled));
 
         /// <summary>
         /// Alternative representations of boolean True
@@ -835,7 +831,7 @@ namespace RDFSharp.Model
                         : (false, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.OWL_RATIONAL:
-                    bool isValidOwlRational = owlRational.Value.Match(literalValue).Success;
+                    bool isValidOwlRational = RDFModelShims.OwlRationalRegexShim.Match(literalValue).Success;
                     return (isValidOwlRational, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_DOUBLE:
