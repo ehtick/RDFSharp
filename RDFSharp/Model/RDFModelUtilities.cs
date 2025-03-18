@@ -57,10 +57,6 @@ namespace RDFSharp.Model
         internal static readonly UTF8Encoding UTF8_NoBOM = new UTF8Encoding(false);
 
         /// <summary>
-        /// Regex to catch 8-byte unicodes
-        /// </summary>
-        internal static readonly Lazy<Regex> regexU8 = new Lazy<Regex>(() => new Regex(@"\\U([0-9A-Fa-f]{8})", RegexOptions.Compiled));
-        /// <summary>
         /// Regex to catch 4-byte unicodes
         /// </summary>
         internal static readonly Lazy<Regex> regexU4 = new Lazy<Regex>(() => new Regex(@"\\u([0-9A-Fa-f]{4})", RegexOptions.Compiled));
@@ -118,7 +114,7 @@ namespace RDFSharp.Model
 
             //UNICODE (UTF-16)
             StringBuilder sbRegexU8 = new StringBuilder();
-            sbRegexU8.Append(regexU8.Value.Replace(asciiString, match => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
+            sbRegexU8.Append(RDFModelShims.EightByteUnicodeRegexShim.Replace(asciiString, match => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
 
             //UNICODE (UTF-8)
             StringBuilder sbRegexU4 = new StringBuilder();
