@@ -115,6 +115,8 @@ namespace RDFSharp.Model
         }
         #endregion
 
+        #endregion
+
         #region Utilities
 
         #region Declarations
@@ -1652,8 +1654,6 @@ namespace RDFSharp.Model
             }
             #endregion
         }
-        #endregion
-
         #endregion
 
         #endregion
