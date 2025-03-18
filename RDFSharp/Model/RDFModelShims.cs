@@ -29,6 +29,7 @@ namespace RDFSharp.Model
         internal const string LanguageTagRegexMask = "[a-zA-Z]{1,8}" + SubLanguageTagRegexMask;
         internal const string TurtleLongLiteralCharsRegexMask = "[\n\r\t\"]";
         internal const string EightByteUnicodeRegexMask = @"\\U([0-9A-Fa-f]{8})";
+        internal const string FourByteUnicodeRegexMask = @"\\u([0-9A-Fa-f]{4})";
         #endregion
 
         #region Ctors
@@ -39,11 +40,13 @@ namespace RDFSharp.Model
             LanguageTagRegexShim = LanguageTagRegex();
             TurtleLongLiteralCharsRegexShim = TurtleLongLiteralCharsRegex();
             EightByteUnicodeRegexShim = EightByteUnicodeRegex();
+            FourByteUnicodeRegexShim = FourByteUnicodeRegex();
 #else
             PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
             LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             TurtleLongLiteralCharsRegexShim = new Regex(TurtleLongLiteralCharsRegexMask, RegexOptions.Compiled);
             EightByteUnicodeRegexShim = new Regex(EightByteUnicodeRegexMask, RegexOptions.Compiled);
+            FourByteUnicodeRegexShim = new Regex(FourByteUnicodeRegexMask, RegexOptions.Compiled);
 #endif
         }
         #endregion
@@ -56,6 +59,8 @@ namespace RDFSharp.Model
         internal static Regex TurtleLongLiteralCharsRegexShim { get; }
 
         internal static Regex EightByteUnicodeRegexShim { get; }
+
+        internal static Regex FourByteUnicodeRegexShim { get; }
         #endregion
 
 #if NET8_0_OR_GREATER
@@ -70,6 +75,9 @@ namespace RDFSharp.Model
 
         [GeneratedRegex(EightByteUnicodeRegexMask)]
         private static partial Regex EightByteUnicodeRegex();
+
+        [GeneratedRegex(FourByteUnicodeRegexMask)]
+        private static partial Regex FourByteUnicodeRegex();
 #endif
     }
 }
