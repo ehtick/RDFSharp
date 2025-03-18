@@ -23,24 +23,30 @@ namespace RDFSharp.Model
     /// </summary>
     public static partial class RDFModelShims
     {
-        #region Regex
-
+        #region Constants
         internal const string PrefixRegexMask = @"^[a-zA-Z0-9_\-]+$";
-        internal static Regex PrefixRegexShim =>
-#if NET8_0_OR_GREATER
-            PrefixRegex();
-#else
-            new Regex(PrefixRegexMask, RegexOptions.Compiled);
-#endif
-
         internal const string SubLanguageTagRegexMask = "(-[a-zA-Z0-9]{1,8})*(--ltr|--rtl)?";
         internal const string LanguageTagRegexMask = "[a-zA-Z]{1,8}" + SubLanguageTagRegexMask;
-        internal static Regex LanguageTagRegexShim() =>
+        #endregion
+
+        #region Ctors
+        static RDFModelShims()
+        {
 #if NET8_0_OR_GREATER
-            LanguageTagRegex();
+            PrefixRegexShim = PrefixRegex();
+            LanguageTagRegexShim = LanguageTagRegex();
 #else
-            new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
+            LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 #endif
+        }
+        #endregion
+
+        #region Properties
+        internal static Regex PrefixRegexShim { get; }
+
+        internal static Regex LanguageTagRegexShim { get; }
+        #endregion
 
 #if NET8_0_OR_GREATER
         [GeneratedRegex(PrefixRegexMask)]
@@ -49,7 +55,5 @@ namespace RDFSharp.Model
         [GeneratedRegex("^" + LanguageTagRegexMask + "$", RegexOptions.IgnoreCase)]
         private static partial Regex LanguageTagRegex();
 #endif
-
-        #endregion
     }
 }

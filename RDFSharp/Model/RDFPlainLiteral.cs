@@ -50,7 +50,7 @@ namespace RDFSharp.Model
         /// </summary>
         public RDFPlainLiteral(string value, string language) : this(value)
         {
-            if (language != null && RDFModelShims.LanguageTagRegexShim().Match(language).Success)
+            if (language != null && RDFModelShims.LanguageTagRegexShim.Match(language).Success)
                 Language = language.ToUpperInvariant();
         }
         #endregion

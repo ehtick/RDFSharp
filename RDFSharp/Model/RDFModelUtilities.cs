@@ -664,7 +664,7 @@ namespace RDFSharp.Model
                     return (isValidNormalizedString, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_LANGUAGE:
-                    bool isValidLanguage = RDFModelShims.LanguageTagRegexShim().Match(literalValue).Success;
+                    bool isValidLanguage = RDFModelShims.LanguageTagRegexShim.Match(literalValue).Success;
                     return (isValidLanguage, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_BASE64BINARY:
