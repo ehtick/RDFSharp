@@ -30,6 +30,7 @@ namespace RDFSharp.Model
         internal const string TurtleLongLiteralCharsRegexMask = "[\n\r\t\"]";
         internal const string EightByteUnicodeRegexMask = @"\\U([0-9A-Fa-f]{8})";
         internal const string FourByteUnicodeRegexMask = @"\\u([0-9A-Fa-f]{4})";
+        internal const string HexBinaryRegexMask = "^([0-9a-fA-F]{2})*$";
         #endregion
 
         #region Ctors
@@ -41,43 +42,40 @@ namespace RDFSharp.Model
             TurtleLongLiteralCharsRegexShim = TurtleLongLiteralCharsRegex();
             EightByteUnicodeRegexShim = EightByteUnicodeRegex();
             FourByteUnicodeRegexShim = FourByteUnicodeRegex();
+            HexBinaryRegexShim = HexBinaryRegex();
 #else
             PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
             LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             TurtleLongLiteralCharsRegexShim = new Regex(TurtleLongLiteralCharsRegexMask, RegexOptions.Compiled);
             EightByteUnicodeRegexShim = new Regex(EightByteUnicodeRegexMask, RegexOptions.Compiled);
             FourByteUnicodeRegexShim = new Regex(FourByteUnicodeRegexMask, RegexOptions.Compiled);
+            HexBinaryRegexShim = new Regex(HexBinaryRegexMask, RegexOptions.Compiled);
 #endif
         }
         #endregion
 
         #region Properties
         internal static Regex PrefixRegexShim { get; }
-
         internal static Regex LanguageTagRegexShim { get; }
-
         internal static Regex TurtleLongLiteralCharsRegexShim { get; }
-
         internal static Regex EightByteUnicodeRegexShim { get; }
-
         internal static Regex FourByteUnicodeRegexShim { get; }
+        internal static Regex HexBinaryRegexShim { get; }
         #endregion
 
 #if NET8_0_OR_GREATER
         [GeneratedRegex(PrefixRegexMask)]
         private static partial Regex PrefixRegex();
-
         [GeneratedRegex("^" + LanguageTagRegexMask + "$", RegexOptions.IgnoreCase)]
         private static partial Regex LanguageTagRegex();
-
         [GeneratedRegex(TurtleLongLiteralCharsRegexMask)]
         private static partial Regex TurtleLongLiteralCharsRegex();
-
         [GeneratedRegex(EightByteUnicodeRegexMask)]
         private static partial Regex EightByteUnicodeRegex();
-
         [GeneratedRegex(FourByteUnicodeRegexMask)]
         private static partial Regex FourByteUnicodeRegex();
+        [GeneratedRegex(HexBinaryRegexMask)]
+        private static partial Regex HexBinaryRegex();
 #endif
     }
 }

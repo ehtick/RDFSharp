@@ -94,14 +94,14 @@ public class RDFModelUtilitiesTest
     [DataTestMethod]
     [DataRow("09AFaf09")]
     public void ShouldMatchHexBinary(string input)
-        => Assert.IsTrue(RDFModelUtilities.hexBinary.Value.IsMatch(input));
+        => Assert.IsTrue(RDFModelShims.HexBinaryRegexShim.IsMatch(input));
 
     [DataTestMethod]
     [DataRow("0")]
     [DataRow("09A")]
     [DataRow("000P")]
     public void ShouldNotMatchHexBinary(string input)
-        => Assert.IsFalse(RDFModelUtilities.hexBinary.Value.IsMatch(input));
+        => Assert.IsFalse(RDFModelShims.HexBinaryRegexShim.IsMatch(input));
 
     [DataTestMethod]
     [DataRow("http://xmlns.com/foaf/0.1/")]

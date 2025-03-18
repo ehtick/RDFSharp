@@ -57,10 +57,6 @@ namespace RDFSharp.Model
         internal static readonly UTF8Encoding UTF8_NoBOM = new UTF8Encoding(false);
 
         /// <summary>
-        /// Regex to catch xsd:hexBinary typed literals
-        /// </summary>
-        internal static readonly Lazy<Regex> hexBinary = new Lazy<Regex>(() => new Regex("^([0-9a-fA-F]{2})*$", RegexOptions.Compiled));
-        /// <summary>
         /// Regex to catch owl:rational typed literals
         /// </summary>
         internal static readonly Lazy<Regex> owlRational = new Lazy<Regex>(() => new Regex("^(0|(-)?([1-9])+([0-9])*)(/([1-9])+([0-9])*)?$", RegexOptions.Compiled));
@@ -668,7 +664,7 @@ namespace RDFSharp.Model
                     catch { return (false, literalValue); }
 
                 case RDFModelEnums.RDFDatatypes.XSD_HEXBINARY:
-                    return (hexBinary.Value.Match(literalValue).Success, literalValue);
+                    return (RDFModelShims.HexBinaryRegexShim.Match(literalValue).Success, literalValue);
                 #endregion
 
                 #region GEOGRAPHIC CATEGORY
