@@ -31,19 +31,9 @@ namespace RDFSharp.Store
     {
         #region Properties
         /// <summary>
-        /// Regex to detect S->P->L(PLAIN LANGUAGE)->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> SPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""@", RDFModelShims.LanguageTagRegexMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
-
-        /// <summary>
         /// Regex to detect S->P->B->L(TYPED) form of N-Quad
         /// </summary>
         internal static readonly Lazy<Regex> SPLC_TLIT = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
-        /// Regex to detect B->P->L(PLAIN LANGUAGE)->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> BPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""@", RDFModelShims.LanguageTagRegexMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
 
         /// <summary>
         /// Regex to detect B->P->L(TYPED)->C form of N-Quad
@@ -392,7 +382,7 @@ namespace RDFSharp.Store
                 }
 
                 //S->P->L(PLANG)->C
-                if (SPLC_PLANG.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsSPLLCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
@@ -634,7 +624,7 @@ namespace RDFSharp.Store
                 }
 
                 //B->P->L(PLANG)->C
-                if (BPLC_PLANG.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsBPLLCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 

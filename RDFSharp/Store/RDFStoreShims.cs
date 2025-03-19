@@ -14,6 +14,7 @@
    limitations under the License.
 */
 
+using RDFSharp.Model;
 using System;
 using System.Text.RegularExpressions;
 
@@ -25,31 +26,37 @@ namespace RDFSharp.Store
     internal static partial class RDFStoreShims
     {
         #region Constants
-        internal const string NQuadsBPBCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
-        internal const string NQuadsBPOCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
-        internal const string NQuadsBPLCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
-        internal const string NQuadsSPBCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
-        internal const string NQuadsSPOCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
-        internal const string NQuadsSPLCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsBPBCRegexMask  = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsBPOCRegexMask  = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsBPLCRegexMask  = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsBPLLCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""@" + RDFModelShims.LanguageTagRegexMask + @"\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsSPBCRegexMask  = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsSPOCRegexMask  = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsSPLCRegexMask  = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsSPLLCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""@" + RDFModelShims.LanguageTagRegexMask + @"\s*<[^<>\s]+>\s*\.$";
         #endregion
 
         #region Ctors
         static RDFStoreShims()
         {
 #if NET8_0_OR_GREATER
-            NQuadsBPBCRegexShim = new Lazy<Regex>(NQuadsBPBCRegex);
-            NQuadsBPOCRegexShim = new Lazy<Regex>(NQuadsBPOCRegex);
-            NQuadsBPLCRegexShim = new Lazy<Regex>(NQuadsBPLCRegex);
-            NQuadsSPBCRegexShim = new Lazy<Regex>(NQuadsSPBCRegex);
-            NQuadsSPOCRegexShim = new Lazy<Regex>(NQuadsSPOCRegex);
-            NQuadsSPLCRegexShim = new Lazy<Regex>(NQuadsSPLCRegex);
+            NQuadsBPBCRegexShim  = new Lazy<Regex>(NQuadsBPBCRegex);
+            NQuadsBPOCRegexShim  = new Lazy<Regex>(NQuadsBPOCRegex);
+            NQuadsBPLCRegexShim  = new Lazy<Regex>(NQuadsBPLCRegex);
+            NQuadsBPLLCRegexShim = new Lazy<Regex>(NQuadsBPLLCRegex);
+            NQuadsSPBCRegexShim  = new Lazy<Regex>(NQuadsSPBCRegex);
+            NQuadsSPOCRegexShim  = new Lazy<Regex>(NQuadsSPOCRegex);
+            NQuadsSPLCRegexShim  = new Lazy<Regex>(NQuadsSPLCRegex);
+            NQuadsSPLLCRegexShim = new Lazy<Regex>(NQuadsSPLLCRegex);
 #else
-            NQuadsBPBCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPBCRegexMask, RegexOptions.Compiled));
-            NQuadsBPOCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPOCRegexMask, RegexOptions.Compiled));
-            NQuadsBPLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPLCRegexMask, RegexOptions.Compiled));
-            NQuadsSPBCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPBCRegexMask, RegexOptions.Compiled));
-            NQuadsSPOCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPOCRegexMask, RegexOptions.Compiled));
-            NQuadsSPLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPLCRegexMask, RegexOptions.Compiled));
+            NQuadsBPBCRegexShim  = new Lazy<Regex>(() => new Regex(NQuadsBPBCRegexMask, RegexOptions.Compiled));
+            NQuadsBPOCRegexShim  = new Lazy<Regex>(() => new Regex(NQuadsBPOCRegexMask, RegexOptions.Compiled));
+            NQuadsBPLCRegexShim  = new Lazy<Regex>(() => new Regex(NQuadsBPLCRegexMask, RegexOptions.Compiled));
+            NQuadsBPLLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPLLCRegexMask, RegexOptions.Compiled));
+            NQuadsSPBCRegexShim  = new Lazy<Regex>(() => new Regex(NQuadsSPBCRegexMask, RegexOptions.Compiled));
+            NQuadsSPOCRegexShim  = new Lazy<Regex>(() => new Regex(NQuadsSPOCRegexMask, RegexOptions.Compiled));
+            NQuadsSPLCRegexShim  = new Lazy<Regex>(() => new Regex(NQuadsSPLCRegexMask, RegexOptions.Compiled));
+            NQuadsSPLLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPLLCRegexMask, RegexOptions.Compiled));
 #endif
         }
         #endregion
@@ -58,9 +65,11 @@ namespace RDFSharp.Store
         internal static Lazy<Regex> NQuadsBPBCRegexShim { get; }
         internal static Lazy<Regex> NQuadsBPOCRegexShim { get; }
         internal static Lazy<Regex> NQuadsBPLCRegexShim { get; }
+        internal static Lazy<Regex> NQuadsBPLLCRegexShim { get; }
         internal static Lazy<Regex> NQuadsSPBCRegexShim { get; }
         internal static Lazy<Regex> NQuadsSPOCRegexShim { get; }
         internal static Lazy<Regex> NQuadsSPLCRegexShim { get; }
+        internal static Lazy<Regex> NQuadsSPLLCRegexShim { get; }
         #endregion
 
 #if NET8_0_OR_GREATER
@@ -73,6 +82,9 @@ namespace RDFSharp.Store
         [GeneratedRegex(NQuadsBPLCRegexMask)]
         private static partial Regex NQuadsBPLCRegex();
 
+        [GeneratedRegex(NQuadsBPLLCRegexMask)]
+        private static partial Regex NQuadsBPLLCRegex();
+
         [GeneratedRegex(NQuadsSPBCRegexMask)]
         private static partial Regex NQuadsSPBCRegex();
 
@@ -81,6 +93,9 @@ namespace RDFSharp.Store
 
         [GeneratedRegex(NQuadsSPLCRegexMask)]
         private static partial Regex NQuadsSPLCRegex();
+
+        [GeneratedRegex(NQuadsSPLLCRegexMask)]
+        private static partial Regex NQuadsSPLLCRegex();
 #endif
     }
 }

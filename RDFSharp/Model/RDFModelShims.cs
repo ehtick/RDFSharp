@@ -62,14 +62,14 @@ namespace RDFSharp.Model
             FourByteUnicodeRegexShim = new Lazy<Regex>(FourByteUnicodeRegex);
             HexBinaryRegexShim = new Lazy<Regex>(HexBinaryRegex);
             OwlRationalRegexShim = new Lazy<Regex>(OwlRationalRegex);
-            NTriplesBPBRegexShim = new Lazy<Regex>(NTriplesBPBRegex);
-            NTriplesBPORegexShim = new Lazy<Regex>(NTriplesBPORegex);
-            NTriplesBPLRegexShim = new Lazy<Regex>(NTriplesBPLRegex);
+            NTriplesBPBRegexShim  = new Lazy<Regex>(NTriplesBPBRegex);
+            NTriplesBPORegexShim  = new Lazy<Regex>(NTriplesBPORegex);
+            NTriplesBPLRegexShim  = new Lazy<Regex>(NTriplesBPLRegex);
             NTriplesBPLLRegexShim = new Lazy<Regex>(NTriplesBPLLRegex);
             NTriplesBPLTRegexShim = new Lazy<Regex>(NTriplesBPLTRegex);
-            NTriplesSPBRegexShim = new Lazy<Regex>(NTriplesSPBRegex);
-            NTriplesSPORegexShim = new Lazy<Regex>(NTriplesSPORegex);
-            NTriplesSPLRegexShim = new Lazy<Regex>(NTriplesSPLRegex);
+            NTriplesSPBRegexShim  = new Lazy<Regex>(NTriplesSPBRegex);
+            NTriplesSPORegexShim  = new Lazy<Regex>(NTriplesSPORegex);
+            NTriplesSPLRegexShim  = new Lazy<Regex>(NTriplesSPLRegex);
             NTriplesSPLLRegexShim = new Lazy<Regex>(NTriplesSPLLRegex);
             NTriplesSPLTRegexShim = new Lazy<Regex>(NTriplesSPLTRegex);
 #else
@@ -83,14 +83,14 @@ namespace RDFSharp.Model
             FourByteUnicodeRegexShim = new Lazy<Regex>(() => new Regex(FourByteUnicodeRegexMask, RegexOptions.Compiled));
             HexBinaryRegexShim = new Lazy<Regex>(() => new Regex(HexBinaryRegexMask, RegexOptions.Compiled));
             OwlRationalRegexShim = new Lazy<Regex>(() => new Regex(OwlRationalRegexMask, RegexOptions.Compiled));
-            NTriplesBPBRegexShim = new Lazy<Regex>(() => new Regex(NTriplesBPBRegexMask, RegexOptions.Compiled));
-            NTriplesBPORegexShim = new Lazy<Regex>(() => new Regex(NTriplesBPORegexMask, RegexOptions.Compiled));
-            NTriplesBPLRegexShim = new Lazy<Regex>(() => new Regex(NTriplesBPLRegexMask, RegexOptions.Compiled));
+            NTriplesBPBRegexShim  = new Lazy<Regex>(() => new Regex(NTriplesBPBRegexMask, RegexOptions.Compiled));
+            NTriplesBPORegexShim  = new Lazy<Regex>(() => new Regex(NTriplesBPORegexMask, RegexOptions.Compiled));
+            NTriplesBPLRegexShim  = new Lazy<Regex>(() => new Regex(NTriplesBPLRegexMask, RegexOptions.Compiled));
             NTriplesBPLLRegexShim = new Lazy<Regex>(() => new Regex(NTriplesBPLLRegexMask, RegexOptions.Compiled));
             NTriplesBPLTRegexShim = new Lazy<Regex>(() => new Regex(NTriplesBPLTRegexMask, RegexOptions.Compiled));
-            NTriplesSPBRegexShim = new Lazy<Regex>(() => new Regex(NTriplesSPBRegexMask, RegexOptions.Compiled));
-            NTriplesSPORegexShim = new Lazy<Regex>(() => new Regex(NTriplesSPORegexMask, RegexOptions.Compiled));
-            NTriplesSPLRegexShim = new Lazy<Regex>(() => new Regex(NTriplesSPLRegexMask, RegexOptions.Compiled));
+            NTriplesSPBRegexShim  = new Lazy<Regex>(() => new Regex(NTriplesSPBRegexMask, RegexOptions.Compiled));
+            NTriplesSPORegexShim  = new Lazy<Regex>(() => new Regex(NTriplesSPORegexMask, RegexOptions.Compiled));
+            NTriplesSPLRegexShim  = new Lazy<Regex>(() => new Regex(NTriplesSPLRegexMask, RegexOptions.Compiled));
             NTriplesSPLLRegexShim = new Lazy<Regex>(() => new Regex(NTriplesSPLLRegexMask, RegexOptions.Compiled));
             NTriplesSPLTRegexShim = new Lazy<Regex>(() => new Regex(NTriplesSPLTRegexMask, RegexOptions.Compiled));
 #endif
