@@ -262,7 +262,7 @@ namespace RDFSharp.Store
                                   || tokens[2].EndsWith("^^", StringComparison.Ordinal)
                                   || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
                             {
-                                if (RDFNTriples.regexLPL.Value.Match(tokens[2]).Success)
+                                if (RDFModelShims.EndingWithLanguageTagRegexShim.Match(tokens[2]).Success)
                                 {
                                     tokens[2] = tokens[2].Replace("\"@", "@");
                                     int lastIndexOfLanguage = tokens[2].LastIndexOf("@", StringComparison.OrdinalIgnoreCase);

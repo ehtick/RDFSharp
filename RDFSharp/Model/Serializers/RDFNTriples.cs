@@ -34,11 +34,6 @@ namespace RDFSharp.Model
         private const string TemplateSPLT = "<{SUBJ}> <{PRED}> \"{VAL}\"^^<{DTYPE}> .";
 
         /// <summary>
-        /// Regex to detect presence of a plain literal with language tag within a given N-Triple
-        /// </summary>
-        internal static readonly Lazy<Regex> regexLPL = new Lazy<Regex>(() => new Regex(string.Concat("@", RDFModelShims.LanguageTagRegexMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase));
-
-        /// <summary>
         /// Regex to detect presence of starting " in the value of a given N-Triple literal
         /// </summary>
         internal static readonly Lazy<Regex> regexSqt = new Lazy<Regex>(() => new Regex(@"^""", RegexOptions.Compiled));
@@ -225,7 +220,7 @@ namespace RDFSharp.Model
                                   || tokens[2].EndsWith("^^", StringComparison.Ordinal)
                                   || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
                             {
-                                if (regexLPL.Value.Match(tokens[2]).Success)
+                                if (RDFModelShims.EndingWithLanguageTagRegexShim.Match(tokens[2]).Success)
                                 {
                                     tokens[2] = tokens[2].Replace("\"@", "@");
                                     int lastIndexOfLanguage = tokens[2].LastIndexOf("@", StringComparison.Ordinal);

@@ -52,7 +52,7 @@ namespace RDFSharp.Query
                   || RDFModelUtilities.GetUriFromString(pMember.Substring(lastIndexOfDatatype + 2)) == null)
             {
                 RDFPlainLiteral pLit;
-                if (RDFNTriples.regexLPL.Value.Match(pMember).Success)
+                if (RDFModelShims.EndingWithLanguageTagRegexShim.Match(pMember).Success)
                 {
                     int lastIndexOfLanguage = pMember.LastIndexOf("@", StringComparison.OrdinalIgnoreCase);
                     string pLitVal = pMember.Substring(0, lastIndexOfLanguage);
