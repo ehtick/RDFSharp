@@ -1612,7 +1612,7 @@ namespace RDFSharp.Model
                     {
                         //Detect presence of long-literals in order to write proper delimiter
                         string litValDelim = "\"";
-                        if (RDFModelShims.TurtleLongLiteralCharsRegexShim.Match(triple.Object.ToString()).Success)
+                        if (RDFModelShims.TurtleLongLiteralCharsRegexShim.Value.Match(triple.Object.ToString()).Success)
                             litValDelim = "\"\"\"";
 
                         //Write the literal's Turtle token

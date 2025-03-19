@@ -95,11 +95,11 @@ namespace RDFSharp.Model
 
             //UNICODE (UTF-16)
             StringBuilder sbRegexU8 = new StringBuilder();
-            sbRegexU8.Append(RDFModelShims.EightByteUnicodeRegexShim.Replace(asciiString, match => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
+            sbRegexU8.Append(RDFModelShims.EightByteUnicodeRegexShim.Value.Replace(asciiString, match => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
 
             //UNICODE (UTF-8)
             StringBuilder sbRegexU4 = new StringBuilder();
-            sbRegexU4.Append(RDFModelShims.FourByteUnicodeRegexShim.Replace(sbRegexU8.ToString(), match => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
+            sbRegexU4.Append(RDFModelShims.FourByteUnicodeRegexShim.Value.Replace(sbRegexU8.ToString(), match => char.ConvertFromUtf32(int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))));
 
             return sbRegexU4.ToString();
         }
@@ -641,7 +641,7 @@ namespace RDFSharp.Model
                     return (isValidNormalizedString, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_LANGUAGE:
-                    bool isValidLanguage = RDFModelShims.LanguageTagRegexShim.Match(literalValue).Success;
+                    bool isValidLanguage = RDFModelShims.LanguageTagRegexShim.Value.Match(literalValue).Success;
                     return (isValidLanguage, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_BASE64BINARY:
@@ -653,7 +653,7 @@ namespace RDFSharp.Model
                     catch { return (false, literalValue); }
 
                 case RDFModelEnums.RDFDatatypes.XSD_HEXBINARY:
-                    return (RDFModelShims.HexBinaryRegexShim.Match(literalValue).Success, literalValue);
+                    return (RDFModelShims.HexBinaryRegexShim.Value.Match(literalValue).Success, literalValue);
                 #endregion
 
                 #region GEOGRAPHIC CATEGORY
@@ -824,7 +824,7 @@ namespace RDFSharp.Model
                         : (false, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.OWL_RATIONAL:
-                    bool isValidOwlRational = RDFModelShims.OwlRationalRegexShim.Match(literalValue).Success;
+                    bool isValidOwlRational = RDFModelShims.OwlRationalRegexShim.Value.Match(literalValue).Success;
                     return (isValidOwlRational, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_DOUBLE:

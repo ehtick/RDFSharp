@@ -193,8 +193,8 @@ namespace RDFSharp.Model
                         else
                         {
                             #region sanitize
-                            tokens[2] = RDFModelShims.StartingWithDoubleQuotationMarkShim.Replace(tokens[2], string.Empty);
-                            tokens[2] = RDFModelShims.EndingWithDoubleQuotationMarkShim.Replace(tokens[2], string.Empty);
+                            tokens[2] = RDFModelShims.StartingWithDoubleQuotationMarkShim.Value.Replace(tokens[2], string.Empty);
+                            tokens[2] = RDFModelShims.EndingWithDoubleQuotationMarkShim.Value.Replace(tokens[2], string.Empty);
                             tokens[2] = tokens[2].Replace(@"\\", "\\")
                                                  .Replace("\\\"", "\"")
                                                  .Replace("\\n", "\n")
@@ -208,7 +208,7 @@ namespace RDFSharp.Model
                                  || tokens[2].EndsWith("^^", StringComparison.Ordinal)
                                  || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
                             {
-                                if (RDFModelShims.EndingWithLanguageTagRegexShim.Match(tokens[2]).Success)
+                                if (RDFModelShims.EndingWithLanguageTagRegexShim.Value.Match(tokens[2]).Success)
                                 {
                                     tokens[2] = tokens[2].Replace("\"@", "@");
                                     int lastIndexOfLanguage = tokens[2].LastIndexOf("@", StringComparison.Ordinal);
@@ -265,7 +265,7 @@ namespace RDFSharp.Model
             if (ntriple.StartsWith("<", StringComparison.Ordinal))
             {
                 //S->P->O
-                if (RDFModelShims.NTriplesSPORegexShim.Match(ntriple).Success)
+                if (RDFModelShims.NTriplesSPORegexShim.Value.Match(ntriple).Success)
                 {
                     ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -286,7 +286,7 @@ namespace RDFSharp.Model
                 }
 
                 //S->P->L(PLAIN)
-                if (RDFModelShims.NTriplesSPLRegexShim.Match(ntriple).Success)
+                if (RDFModelShims.NTriplesSPLRegexShim.Value.Match(ntriple).Success)
                 {
                     ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -307,7 +307,7 @@ namespace RDFSharp.Model
                 }
 
                 //S->P->L(PLANG)
-                if (RDFModelShims.NTriplesSPLLRegexShim.Match(ntriple).Success)
+                if (RDFModelShims.NTriplesSPLLRegexShim.Value.Match(ntriple).Success)
                 {
                     ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -328,7 +328,7 @@ namespace RDFSharp.Model
                 }
 
                 //S->P->L(TLIT)
-                if (RDFModelShims.NTriplesSPLTRegexShim.Match(ntriple).Success)
+                if (RDFModelShims.NTriplesSPLTRegexShim.Value.Match(ntriple).Success)
                 {
                     ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -349,7 +349,7 @@ namespace RDFSharp.Model
                 }
 
                 //S->P->B
-                if (RDFModelShims.NTriplesSPBRegexShim.Match(ntriple).Success)
+                if (RDFModelShims.NTriplesSPBRegexShim.Value.Match(ntriple).Success)
                 {
                     ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -374,7 +374,7 @@ namespace RDFSharp.Model
             //B->-> triple
 
             //B->P->O
-            if (RDFModelShims.NTriplesBPORegexShim.Match(ntriple).Success)
+            if (RDFModelShims.NTriplesBPORegexShim.Value.Match(ntriple).Success)
             {
                 ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -395,7 +395,7 @@ namespace RDFSharp.Model
             }
 
             //B->P->L(PLAIN)
-            if (RDFModelShims.NTriplesBPLRegexShim.Match(ntriple).Success)
+            if (RDFModelShims.NTriplesBPLRegexShim.Value.Match(ntriple).Success)
             {
                 ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -416,7 +416,7 @@ namespace RDFSharp.Model
             }
 
             //B->P->L(PLANG)
-            if (RDFModelShims.NTriplesBPLLRegexShim.Match(ntriple).Success)
+            if (RDFModelShims.NTriplesBPLLRegexShim.Value.Match(ntriple).Success)
             {
                 ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -437,7 +437,7 @@ namespace RDFSharp.Model
             }
 
             //B->P->L(TLIT)
-            if (RDFModelShims.NTriplesBPLTRegexShim.Match(ntriple).Success)
+            if (RDFModelShims.NTriplesBPLTRegexShim.Value.Match(ntriple).Success)
             {
                 ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -458,7 +458,7 @@ namespace RDFSharp.Model
             }
 
             //B->P->B
-            if (RDFModelShims.NTriplesBPBRegexShim.Match(ntriple).Success)
+            if (RDFModelShims.NTriplesBPBRegexShim.Value.Match(ntriple).Success)
             {
                 ntriple = ntriple.Trim('.', ' ', '\t');
 
