@@ -233,7 +233,7 @@ namespace RDFSharp.Model
         /// Updates the position of the cursor within Turtle context
         /// </summary>
         internal static void UpdateTurtleContextPosition(RDFTurtleContext turtleContext, int move)
-        => turtleContext.Position += move;
+            => turtleContext.Position += move;
 
         /// <summary>
         /// Safety checks the position of the cursor within Turtle context

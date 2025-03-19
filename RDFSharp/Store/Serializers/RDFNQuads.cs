@@ -28,6 +28,12 @@ namespace RDFSharp.Store
     /// </summary>
     internal static class RDFNQuads
     {
+        #region Properties
+        private const string TemplateSPOC  = "<{SUBJ}> <{PRED}> <{OBJ}> <{CTX}> .";
+        private const string TemplateSPLLC = "<{SUBJ}> <{PRED}> \"{VAL}\"@{LANG} <{CTX}> .";
+        private const string TemplateSPLTC = "<{SUBJ}> <{PRED}> \"{VAL}\"^^<{DTYPE}> <{CTX}> .";
+        #endregion
+
         #region Methods
 
         #region Write
@@ -52,12 +58,9 @@ namespace RDFSharp.Store
                         #region template
                         string quadrupleTemplate;
                         if (q.TripleFlavor == RDFModelEnums.RDFTripleFlavors.SPO)
-                            quadrupleTemplate = "<{SUBJ}> <{PRED}> <{OBJ}> <{CTX}> .";
+                            quadrupleTemplate = TemplateSPOC;
                         else
-                        {
-                            quadrupleTemplate = q.Object is RDFPlainLiteral ? "<{SUBJ}> <{PRED}> \"{VAL}\"@{LANG} <{CTX}> ."
-                                                                            : "<{SUBJ}> <{PRED}> \"{VAL}\"^^<{DTYPE}> <{CTX}> .";
-                        }
+                            quadrupleTemplate = q.Object is RDFPlainLiteral ? TemplateSPLLC : TemplateSPLTC;
                         #endregion
 
                         #region subj
@@ -71,10 +74,8 @@ namespace RDFSharp.Store
 
                         #region object
                         if (q.TripleFlavor == RDFModelEnums.RDFTripleFlavors.SPO)
-                        {
                             quadrupleTemplate = ((RDFResource)q.Object).IsBlank ? quadrupleTemplate.Replace("<{OBJ}>", RDFModelUtilities.Unicode_To_ASCII(q.Object.ToString())).Replace("bnode:", "_:")
                                                                                 : quadrupleTemplate.Replace("{OBJ}", RDFModelUtilities.Unicode_To_ASCII(q.Object.ToString()));
-                        }
                         #endregion
 
                         #region literal

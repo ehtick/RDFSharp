@@ -60,7 +60,7 @@ namespace RDFSharp.Model
                     XmlAttribute rdfRootNS = rdfDoc.CreateAttribute("xmlns:rdf");
                     XmlText rdfRootNSText = rdfDoc.CreateTextNode(RDFVocabulary.RDF.BASE_URI);
                     rdfRootNS.AppendChild(rdfRootNSText);
-                    rdfRoot.Attributes.Append(rdfRootNS);
+                    rdfRoot.Attributes?.Append(rdfRootNS);
 
                     #region prefixes
                     //Write the prefixes (except for "rdf" and "base")
@@ -74,14 +74,14 @@ namespace RDFSharp.Model
                             XmlAttribute pfRootNS = rdfDoc.CreateAttribute(string.Concat("xmlns:", p.NamespacePrefix));
                             XmlText pfRootNSText = rdfDoc.CreateTextNode(p.ToString());
                             pfRootNS.AppendChild(pfRootNSText);
-                            rdfRoot.Attributes.Append(pfRootNS);
+                            rdfRoot.Attributes?.Append(pfRootNS);
                         }
                     });
                     //Write the graph's base uri to resolve eventual relative #IDs
                     XmlAttribute pfBaseNS = rdfDoc.CreateAttribute("xml:base");
                     XmlText pfBaseNSText = rdfDoc.CreateTextNode(graph.Context.ToString());
                     pfBaseNS.AppendChild(pfBaseNSText);
-                    rdfRoot.Attributes.Append(pfBaseNS);
+                    rdfRoot.Attributes?.Append(pfBaseNS);
                     #endregion
 
                     #region containers/collections
@@ -717,7 +717,7 @@ namespace RDFSharp.Model
                              ?? throw new RDFModelException("Cannot create RDFNamespace because given \"namespaceString\" (" + namespaceString + ") parameter cannot be converted to a valid Uri");
                 string nspace = uriNS.AbsoluteUri;
 
-                // e.g.:  "http://www.w3.org/2001/XMLSchema#integer"
+                // e.g.: "http://www.w3.org/2001/XMLSchema#integer"
                 if (uriNS.Fragment != string.Empty)
                 {
                     string fragment = uriNS.Fragment.Replace("#", string.Empty);
@@ -726,7 +726,7 @@ namespace RDFSharp.Model
                 }
                 else
                 {
-                    // e.g.:  "http://example.org/integer"
+                    // e.g.: "http://example.org/integer"
                     if (uriNS.LocalPath != "/" && !isDatatypeNamespace)
                         nspace = Regex.Replace(nspace, string.Concat(uriNS.Segments[uriNS.Segments.Length - 1], "$"), string.Empty);
                 }

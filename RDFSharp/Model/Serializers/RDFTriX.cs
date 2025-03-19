@@ -60,7 +60,7 @@ namespace RDFSharp.Model
                     XmlAttribute trixRootNS = trixDoc.CreateAttribute("xmlns");
                     XmlText trixRootNSText = trixDoc.CreateTextNode("http://www.w3.org/2004/03/trix/trix-1/");
                     trixRootNS.AppendChild(trixRootNSText);
-                    trixRoot.Attributes.Append(trixRootNS);
+                    trixRoot.Attributes?.Append(trixRootNS);
 
                     #region graph
                     AppendTriXGraph(trixDoc, trixRoot, graph);
@@ -143,7 +143,7 @@ namespace RDFSharp.Model
                             XmlAttribute xmlLang = trixDoc.CreateAttribute("xml:lang", RDFVocabulary.XML.BASE_URI);
                             XmlText xmlLangText = trixDoc.CreateTextNode(objLit.Language);
                             xmlLang.AppendChild(xmlLangText);
-                            plainLiteralElement.Attributes.Append(xmlLang);
+                            plainLiteralElement.Attributes?.Append(xmlLang);
                         }
                         XmlText plainLiteralText = trixDoc.CreateTextNode(RDFModelUtilities.EscapeControlCharsForXML(HttpUtility.HtmlDecode(objLit.Value)));
                         plainLiteralElement.AppendChild(plainLiteralText);
@@ -160,7 +160,7 @@ namespace RDFSharp.Model
                         XmlAttribute datatype = trixDoc.CreateAttribute("datatype");
                         XmlText datatypeText = trixDoc.CreateTextNode(((RDFTypedLiteral)t.Object).Datatype.URI.ToString());
                         datatype.AppendChild(datatypeText);
-                        typedLiteralElement.Attributes.Append(datatype);
+                        typedLiteralElement.Attributes?.Append(datatype);
                         XmlText typedLiteralText = trixDoc.CreateTextNode(RDFModelUtilities.EscapeControlCharsForXML(HttpUtility.HtmlDecode(((RDFLiteral)t.Object).Value)));
                         typedLiteralElement.AppendChild(typedLiteralText);
                         tripleElement.AppendChild(typedLiteralElement);
@@ -281,7 +281,7 @@ namespace RDFSharp.Model
         {
             //Subject is a resource ("<uri>") or a blank node ("<id>")
             if (graphChild.ChildNodes[0].Name.Equals("uri", StringComparison.Ordinal)
-                    || graphChild.ChildNodes[0].Name.Equals("id", StringComparison.Ordinal))
+                 || graphChild.ChildNodes[0].Name.Equals("id", StringComparison.Ordinal))
             {
                 //Subject without value: exception must be raised
                 if (string.IsNullOrEmpty(graphChild.ChildNodes[0].InnerText))
@@ -311,7 +311,7 @@ namespace RDFSharp.Model
 
             //Object is a resource ("<uri>") or a blank node ("<id>")
             if (graphChild.ChildNodes[2].Name.Equals("uri", StringComparison.Ordinal)
-                    || graphChild.ChildNodes[2].Name.Equals("id", StringComparison.Ordinal))
+                 || graphChild.ChildNodes[2].Name.Equals("id", StringComparison.Ordinal))
             {
                 //Object without value: exception must be raised
                 if (string.IsNullOrEmpty(graphChild.ChildNodes[2].InnerText))
@@ -332,7 +332,7 @@ namespace RDFSharp.Model
             //Object is a plain literal ("<plainLiteral>")
             else if (graphChild.ChildNodes[2].Name.Equals("plainLiteral"))
             {
-                XmlAttribute xmlLang = graphChild.ChildNodes[2].Attributes["xml:lang"];
+                XmlAttribute xmlLang = graphChild.ChildNodes[2].Attributes?["xml:lang"];
 
                 //Plain literal has language
                 if (xmlLang != null)
@@ -350,7 +350,7 @@ namespace RDFSharp.Model
             //Object is a typed literal ("<typedLiteral>")
             else if (graphChild.ChildNodes[2].Name.Equals("typedLiteral", StringComparison.Ordinal))
             {
-                XmlAttribute datatype = graphChild.ChildNodes[2].Attributes["datatype"];
+                XmlAttribute datatype = graphChild.ChildNodes[2].Attributes?["datatype"];
 
                 //Typed literal has datatype
                 if (datatype != null)
