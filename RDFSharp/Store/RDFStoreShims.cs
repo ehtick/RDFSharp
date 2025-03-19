@@ -25,6 +25,9 @@ namespace RDFSharp.Store
     internal static partial class RDFStoreShims
     {
         #region Constants
+        internal const string NQuadsBPBCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsBPOCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsBPLCRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
         internal const string NQuadsSPBCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
         internal const string NQuadsSPOCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
         internal const string NQuadsSPLCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
@@ -34,10 +37,16 @@ namespace RDFSharp.Store
         static RDFStoreShims()
         {
 #if NET8_0_OR_GREATER
+            NQuadsBPBCRegexShim = new Lazy<Regex>(NQuadsBPBCRegex);
+            NQuadsBPOCRegexShim = new Lazy<Regex>(NQuadsBPOCRegex);
+            NQuadsBPLCRegexShim = new Lazy<Regex>(NQuadsBPLCRegex);
             NQuadsSPBCRegexShim = new Lazy<Regex>(NQuadsSPBCRegex);
             NQuadsSPOCRegexShim = new Lazy<Regex>(NQuadsSPOCRegex);
             NQuadsSPLCRegexShim = new Lazy<Regex>(NQuadsSPLCRegex);
 #else
+            NQuadsBPBCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPBCRegexMask, RegexOptions.Compiled));
+            NQuadsBPOCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPOCRegexMask, RegexOptions.Compiled));
+            NQuadsBPLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsBPLCRegexMask, RegexOptions.Compiled));
             NQuadsSPBCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPBCRegexMask, RegexOptions.Compiled));
             NQuadsSPOCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPOCRegexMask, RegexOptions.Compiled));
             NQuadsSPLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPLCRegexMask, RegexOptions.Compiled));
@@ -46,12 +55,24 @@ namespace RDFSharp.Store
         #endregion
 
         #region Properties
+        internal static Lazy<Regex> NQuadsBPBCRegexShim { get; }
+        internal static Lazy<Regex> NQuadsBPOCRegexShim { get; }
+        internal static Lazy<Regex> NQuadsBPLCRegexShim { get; }
         internal static Lazy<Regex> NQuadsSPBCRegexShim { get; }
         internal static Lazy<Regex> NQuadsSPOCRegexShim { get; }
         internal static Lazy<Regex> NQuadsSPLCRegexShim { get; }
         #endregion
 
 #if NET8_0_OR_GREATER
+        [GeneratedRegex(NQuadsBPBCRegexMask)]
+        private static partial Regex NQuadsBPBCRegex();
+
+        [GeneratedRegex(NQuadsBPOCRegexMask)]
+        private static partial Regex NQuadsBPOCRegex();
+
+        [GeneratedRegex(NQuadsBPLCRegexMask)]
+        private static partial Regex NQuadsBPLCRegex();
+
         [GeneratedRegex(NQuadsSPBCRegexMask)]
         private static partial Regex NQuadsSPBCRegex();
 

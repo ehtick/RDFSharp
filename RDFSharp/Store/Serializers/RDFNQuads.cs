@@ -41,21 +41,6 @@ namespace RDFSharp.Store
         internal static readonly Lazy<Regex> SPLC_TLIT = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
 
         /// <summary>
-        /// Regex to detect B->P->B->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> BPBC = new Lazy<Regex>(() => new Regex(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
-        /// Regex to detect B->P->O->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> BPOC = new Lazy<Regex>(() => new Regex(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
-        /// Regex to detect B->P->L(PLAIN)->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> BPLC_PLAIN = new Lazy<Regex>(() => new Regex(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
         /// Regex to detect B->P->L(PLAIN LANGUAGE)->C form of N-Quad
         /// </summary>
         internal static readonly Lazy<Regex> BPLC_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""@", RDFModelShims.LanguageTagRegexMask, @"\s*<[^<>\s]+>\s*\.$"), RegexOptions.Compiled));
@@ -555,7 +540,7 @@ namespace RDFSharp.Store
             else
             {
                 //B->P->O->C
-                if (BPOC.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsBPOCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
@@ -602,7 +587,7 @@ namespace RDFSharp.Store
                 }
 
                 //B->P->L(PLAIN)->C
-                if (BPLC_PLAIN.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsBPLCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
@@ -743,7 +728,7 @@ namespace RDFSharp.Store
                 }
 
                 //B->P->B->C
-                if (BPBC.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsBPBCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
