@@ -354,7 +354,7 @@ namespace RDFSharp.Store
                 }
 
                 //S->P->O->
-                if (RDFNTriples.SPO.Value.Match(nquad).Success)
+                if (RDFModelShims.NTriplesSPORegexShim.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
@@ -542,7 +542,7 @@ namespace RDFSharp.Store
                 }
 
                 //S->P->B->
-                if (RDFNTriples.SPB.Value.Match(nquad).Success)
+                if (RDFModelShims.NTriplesSPBRegexShim.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
@@ -593,7 +593,7 @@ namespace RDFSharp.Store
             }
 
             //B->P->O->
-            if (RDFNTriples.BPO.Value.Match(nquad).Success)
+            if (RDFModelShims.NTriplesBPORegexShim.Match(nquad).Success)
             {
                 nquad = nquad.Trim('.', ' ', '\t');
 
@@ -781,7 +781,7 @@ namespace RDFSharp.Store
             }
 
             //B->P->B->
-            if (RDFNTriples.BPB.Value.Match(nquad).Success)
+            if (RDFModelShims.NTriplesBPBRegexShim.Match(nquad).Success)
             {
                 nquad = nquad.Trim('.', ' ', '\t');
 

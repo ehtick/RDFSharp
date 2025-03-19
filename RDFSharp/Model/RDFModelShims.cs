@@ -34,6 +34,10 @@ namespace RDFSharp.Model
         internal const string FourByteUnicodeRegexMask = @"\\u([0-9A-Fa-f]{4})";
         internal const string HexBinaryRegexMask = "^([0-9a-fA-F]{2})*$";
         internal const string OwlRationalRegexMask = "^(0|(-)?([1-9])+([0-9])*)(/([1-9])+([0-9])*)?$";
+        internal const string NTriplesBPBRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*\.$";
+        internal const string NTriplesBPORegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NTriplesSPBRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*\.$";
+        internal const string NTriplesSPORegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
         #endregion
 
         #region Ctors
@@ -47,6 +51,10 @@ namespace RDFSharp.Model
             FourByteUnicodeRegexShim = FourByteUnicodeRegex();
             HexBinaryRegexShim = HexBinaryRegex();
             OwlRationalRegexShim = OwlRationalRegex();
+            NTriplesBPBRegexShim = NTriplesBPBRegex();
+            NTriplesBPORegexShim = NTriplesBPORegex();
+            NTriplesSPBRegexShim = NTriplesSPBRegex();
+            NTriplesSPORegexShim = NTriplesSPORegex();
 #else
             PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
             LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -55,6 +63,10 @@ namespace RDFSharp.Model
             FourByteUnicodeRegexShim = new Regex(FourByteUnicodeRegexMask, RegexOptions.Compiled);
             HexBinaryRegexShim = new Regex(HexBinaryRegexMask, RegexOptions.Compiled);
             OwlRationalRegexShim = new Regex(OwlRationalRegexMask, RegexOptions.Compiled);
+            NTriplesBPBRegexShim = new Regex(NTriplesBPBRegexMask, RegexOptions.Compiled);
+            NTriplesBPORegexShim = new Regex(NTriplesBPORegexMask, RegexOptions.Compiled);
+            NTriplesSPBRegexShim = new Regex(NTriplesSPBRegexMask, RegexOptions.Compiled);
+            NTriplesSPORegexShim = new Regex(NTriplesSPORegexMask, RegexOptions.Compiled);
 #endif
         }
         #endregion
@@ -67,6 +79,10 @@ namespace RDFSharp.Model
         internal static Regex FourByteUnicodeRegexShim { get; }
         internal static Regex HexBinaryRegexShim { get; }
         internal static Regex OwlRationalRegexShim { get; }
+        internal static Regex NTriplesBPBRegexShim { get; }
+        internal static Regex NTriplesBPORegexShim { get; }
+        internal static Regex NTriplesSPBRegexShim { get; }
+        internal static Regex NTriplesSPORegexShim { get; }
         #endregion
 
         #region Methods
@@ -97,6 +113,14 @@ namespace RDFSharp.Model
         private static partial Regex HexBinaryRegex();
         [GeneratedRegex(OwlRationalRegexMask)]
         private static partial Regex OwlRationalRegex();
+        [GeneratedRegex(NTriplesBPBRegexMask)]
+        private static partial Regex NTriplesBPBRegex();
+        [GeneratedRegex(NTriplesBPORegexMask)]
+        private static partial Regex NTriplesBPORegex();
+        [GeneratedRegex(NTriplesSPBRegexMask)]
+        private static partial Regex NTriplesSPBRegex();
+        [GeneratedRegex(NTriplesSPORegexMask)]
+        private static partial Regex NTriplesSPORegex();
 #endif
     }
 }
