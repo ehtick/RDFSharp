@@ -31,11 +31,6 @@ namespace RDFSharp.Store
     {
         #region Properties
         /// <summary>
-        /// Regex to detect S->P->B->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> SPBC = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
         /// Regex to detect S->P->O->C form of N-Quad
         /// </summary>
         internal static readonly Lazy<Regex> SPOC = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
@@ -516,7 +511,7 @@ namespace RDFSharp.Store
                 }
 
                 //S->P->B->C
-                if (SPBC.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsSPBCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
