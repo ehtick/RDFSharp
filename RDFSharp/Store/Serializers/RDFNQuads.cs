@@ -247,8 +247,8 @@ namespace RDFSharp.Store
                         else
                         {
                             #region sanitize
-                            tokens[2] = RDFNTriples.regexSqt.Value.Replace(tokens[2], string.Empty);
-                            tokens[2] = RDFNTriples.regexEqt.Value.Replace(tokens[2], string.Empty);
+                            tokens[2] = RDFModelShims.StartingWithDoubleQuotationMarkShim.Replace(tokens[2], string.Empty);
+                            tokens[2] = RDFModelShims.EndingWithDoubleQuotationMarkShim.Replace(tokens[2], string.Empty);
                             tokens[2] = tokens[2].Replace(@"\\", "\\")
                                                  .Replace("\\\"", "\"")
                                                  .Replace("\\n", "\n")
@@ -259,8 +259,8 @@ namespace RDFSharp.Store
 
                             #region plain literal
                             if (!tokens[2].Contains("^^")
-                                  || tokens[2].EndsWith("^^", StringComparison.Ordinal)
-                                  || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
+                                 || tokens[2].EndsWith("^^", StringComparison.Ordinal)
+                                 || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
                             {
                                 if (RDFModelShims.EndingWithLanguageTagRegexShim.Match(tokens[2]).Success)
                                 {

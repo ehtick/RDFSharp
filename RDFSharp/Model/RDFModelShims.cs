@@ -29,6 +29,8 @@ namespace RDFSharp.Model
         internal const string PrefixRegexMask = @"^[a-zA-Z0-9_\-]+$";
         internal const string SubLanguageTagRegexMask = "(-[a-zA-Z0-9]{1,8})*(--ltr|--rtl)?";
         internal const string LanguageTagRegexMask = "[a-zA-Z]{1,8}" + SubLanguageTagRegexMask;
+        internal const string StartingWithDoubleQuotationMarkRegexMask = @"^""";
+        internal const string EndingWithDoubleQuotationMarkRegexMask = @"""$";
         internal const string TurtleLongLiteralCharsRegexMask = "[\n\r\t\"]";
         internal const string EightByteUnicodeRegexMask = @"\\U([0-9A-Fa-f]{8})";
         internal const string FourByteUnicodeRegexMask = @"\\u([0-9A-Fa-f]{4})";
@@ -53,6 +55,8 @@ namespace RDFSharp.Model
             PrefixRegexShim = PrefixRegex();
             LanguageTagRegexShim = LanguageTagRegex();
             EndingWithLanguageTagRegexShim = EndingWithLanguageTagRegex();
+            StartingWithDoubleQuotationMarkShim = StartingWithDoubleQuotationMarkRegex();
+            EndingWithDoubleQuotationMarkShim = EndingWithDoubleQuotationMarkRegex();
             TurtleLongLiteralCharsRegexShim = TurtleLongLiteralCharsRegex();
             EightByteUnicodeRegexShim = EightByteUnicodeRegex();
             FourByteUnicodeRegexShim = FourByteUnicodeRegex();
@@ -72,6 +76,8 @@ namespace RDFSharp.Model
             PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
             LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             EndingWithLanguageTagRegexShim = new Regex("@" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            StartingWithDoubleQuotationMarkShim = new Regex(StartingWithDoubleQuotationMarkRegexMask, RegexOptions.Compiled);
+            EndingWithDoubleQuotationMarkShim = new Regex(EndingWithDoubleQuotationMarkRegexMask, RegexOptions.Compiled);
             TurtleLongLiteralCharsRegexShim = new Regex(TurtleLongLiteralCharsRegexMask, RegexOptions.Compiled);
             EightByteUnicodeRegexShim = new Regex(EightByteUnicodeRegexMask, RegexOptions.Compiled);
             FourByteUnicodeRegexShim = new Regex(FourByteUnicodeRegexMask, RegexOptions.Compiled);
@@ -95,6 +101,8 @@ namespace RDFSharp.Model
         internal static Regex PrefixRegexShim { get; }
         internal static Regex LanguageTagRegexShim { get; }
         internal static Regex EndingWithLanguageTagRegexShim { get; }
+        internal static Regex StartingWithDoubleQuotationMarkShim { get; }
+        internal static Regex EndingWithDoubleQuotationMarkShim { get; }
         internal static Regex TurtleLongLiteralCharsRegexShim { get; }
         internal static Regex EightByteUnicodeRegexShim { get; }
         internal static Regex FourByteUnicodeRegexShim { get; }
@@ -134,6 +142,12 @@ namespace RDFSharp.Model
 
         [GeneratedRegex("@" + LanguageTagRegexMask + "$", RegexOptions.IgnoreCase)]
         private static partial Regex EndingWithLanguageTagRegex();
+
+        [GeneratedRegex(StartingWithDoubleQuotationMarkRegexMask)]
+        private static partial Regex StartingWithDoubleQuotationMarkRegex();
+
+        [GeneratedRegex(EndingWithDoubleQuotationMarkRegexMask)]
+        private static partial Regex EndingWithDoubleQuotationMarkRegex();
 
         [GeneratedRegex(TurtleLongLiteralCharsRegexMask)]
         private static partial Regex TurtleLongLiteralCharsRegex();

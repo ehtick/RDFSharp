@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 
 namespace RDFSharp.Model
@@ -32,16 +31,6 @@ namespace RDFSharp.Model
         private const string TemplateSPO  = "<{SUBJ}> <{PRED}> <{OBJ}> .";
         private const string TemplateSPLL = "<{SUBJ}> <{PRED}> \"{VAL}\"@{LANG} .";
         private const string TemplateSPLT = "<{SUBJ}> <{PRED}> \"{VAL}\"^^<{DTYPE}> .";
-
-        /// <summary>
-        /// Regex to detect presence of starting " in the value of a given N-Triple literal
-        /// </summary>
-        internal static readonly Lazy<Regex> regexSqt = new Lazy<Regex>(() => new Regex(@"^""", RegexOptions.Compiled));
-
-        /// <summary>
-        /// Regex to detect presence of ending " in the value of a given N-Triple literal
-        /// </summary>
-        internal static readonly Lazy<Regex> regexEqt = new Lazy<Regex>(() => new Regex(@"""$", RegexOptions.Compiled));
         #endregion
 
         #region Methods
@@ -203,10 +192,9 @@ namespace RDFSharp.Model
                         #region literal
                         else
                         {
-
                             #region sanitize
-                            tokens[2] = regexSqt.Value.Replace(tokens[2], string.Empty);
-                            tokens[2] = regexEqt.Value.Replace(tokens[2], string.Empty);
+                            tokens[2] = RDFModelShims.StartingWithDoubleQuotationMarkShim.Replace(tokens[2], string.Empty);
+                            tokens[2] = RDFModelShims.EndingWithDoubleQuotationMarkShim.Replace(tokens[2], string.Empty);
                             tokens[2] = tokens[2].Replace(@"\\", "\\")
                                                  .Replace("\\\"", "\"")
                                                  .Replace("\\n", "\n")
@@ -217,8 +205,8 @@ namespace RDFSharp.Model
 
                             #region plain literal
                             if (!tokens[2].Contains("^^")
-                                  || tokens[2].EndsWith("^^", StringComparison.Ordinal)
-                                  || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
+                                 || tokens[2].EndsWith("^^", StringComparison.Ordinal)
+                                 || tokens[2].Substring(tokens[2].LastIndexOf("^^", StringComparison.Ordinal) + 2, 1) != "<")
                             {
                                 if (RDFModelShims.EndingWithLanguageTagRegexShim.Match(tokens[2]).Success)
                                 {
@@ -245,7 +233,6 @@ namespace RDFSharp.Model
                                 L = new RDFTypedLiteral(HttpUtility.HtmlDecode(tLitValue), RDFDatatypeRegister.GetDatatype(tLitDatatype));
                             }
                             #endregion
-
                         }
                         #endregion
 
