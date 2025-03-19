@@ -34,11 +34,6 @@ namespace RDFSharp.Model
         private const string TemplateSPLT = "<{SUBJ}> <{PRED}> \"{VAL}\"^^<{DTYPE}> .";
 
         /// <summary>
-        /// Regex to detect S->P->L(PLAIN) form of N-Triple/N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> SPL_PLAIN = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
         /// Regex to detect S->P->L(PLAIN LANGUAGE) form of N-Triple/N-Quad
         /// </summary>
         internal static readonly Lazy<Regex> SPL_PLANG = new Lazy<Regex>(() => new Regex(string.Concat(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""@", RDFModelShims.LanguageTagRegexMask, @"\s*\.$"), RegexOptions.Compiled));
@@ -47,11 +42,6 @@ namespace RDFSharp.Model
         /// Regex to detect S->P->L(TYPED) form of N-Triple/N-Quad
         /// </summary>
         internal static readonly Lazy<Regex> SPL_TLIT = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
-        /// Regex to detect B->P->L(PLAIN) form of N-Triple/N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> BPL_PLAIN = new Lazy<Regex>(() => new Regex(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*\.$", RegexOptions.Compiled));
 
         /// <summary>
         /// Regex to detect B->P->L(PLAIN LANGUAGE) form of N-Triple/N-Quad
@@ -334,7 +324,7 @@ namespace RDFSharp.Model
                 }
 
                 //S->P->L(PLAIN)
-                if (SPL_PLAIN.Value.Match(ntriple).Success)
+                if (RDFModelShims.NTriplesSPLRegexShim.Match(ntriple).Success)
                 {
                     ntriple = ntriple.Trim('.', ' ', '\t');
 
@@ -443,7 +433,7 @@ namespace RDFSharp.Model
             }
 
             //B->P->L(PLAIN)
-            if (BPL_PLAIN.Value.Match(ntriple).Success)
+            if (RDFModelShims.NTriplesBPLRegexShim.Match(ntriple).Success)
             {
                 ntriple = ntriple.Trim('.', ' ', '\t');
 

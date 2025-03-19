@@ -401,7 +401,7 @@ namespace RDFSharp.Store
                 }
 
                 //S->P->L(PLAIN)->
-                if (RDFNTriples.SPL_PLAIN.Value.Match(nquad).Success)
+                if (RDFModelShims.NTriplesSPLRegexShim.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t');
 
@@ -640,7 +640,7 @@ namespace RDFSharp.Store
             }
 
             //B->P->L(PLAIN)->
-            if (RDFNTriples.BPL_PLAIN.Value.Match(nquad).Success)
+            if (RDFModelShims.NTriplesBPLRegexShim.Match(nquad).Success)
             {
                 nquad = nquad.Trim('.', ' ', '\t');
 
