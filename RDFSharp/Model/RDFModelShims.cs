@@ -52,26 +52,26 @@ namespace RDFSharp.Model
         static RDFModelShims()
         {
 #if NET8_0_OR_GREATER
-            PrefixRegexShim =  new Lazy<Regex>(() => PrefixRegex());
-            LanguageTagRegexShim =  new Lazy<Regex>(() => LanguageTagRegex());
-            EndingWithLanguageTagRegexShim =  new Lazy<Regex>(() => EndingWithLanguageTagRegex());
-            StartingWithDoubleQuotationMarkShim =  new Lazy<Regex>(() => StartingWithDoubleQuotationMarkRegex());
-            EndingWithDoubleQuotationMarkShim =  new Lazy<Regex>(() => EndingWithDoubleQuotationMarkRegex());
-            TurtleLongLiteralCharsRegexShim =  new Lazy<Regex>(() => TurtleLongLiteralCharsRegex());
-            EightByteUnicodeRegexShim =  new Lazy<Regex>(() => EightByteUnicodeRegex());
-            FourByteUnicodeRegexShim =  new Lazy<Regex>(() => FourByteUnicodeRegex());
-            HexBinaryRegexShim =  new Lazy<Regex>(() => HexBinaryRegex());
-            OwlRationalRegexShim =  new Lazy<Regex>(() => OwlRationalRegex());
-            NTriplesBPBRegexShim =  new Lazy<Regex>(() => NTriplesBPBRegex());
-            NTriplesBPORegexShim =  new Lazy<Regex>(() => NTriplesBPORegex());
-            NTriplesBPLRegexShim =  new Lazy<Regex>(() => NTriplesBPLRegex());
-            NTriplesBPLLRegexShim =  new Lazy<Regex>(() => NTriplesBPLLRegex());
-            NTriplesBPLTRegexShim =  new Lazy<Regex>(() => NTriplesBPLTRegex());
-            NTriplesSPBRegexShim =  new Lazy<Regex>(() => NTriplesSPBRegex());
-            NTriplesSPORegexShim =  new Lazy<Regex>(() => NTriplesSPORegex());
-            NTriplesSPLRegexShim =  new Lazy<Regex>(() => NTriplesSPLRegex());
-            NTriplesSPLLRegexShim =  new Lazy<Regex>(() => NTriplesSPLLRegex());
-            NTriplesSPLTRegexShim =  new Lazy<Regex>(() => NTriplesSPLTRegex());
+            PrefixRegexShim = new Lazy<Regex>(PrefixRegex);
+            LanguageTagRegexShim = new Lazy<Regex>(LanguageTagRegex);
+            EndingWithLanguageTagRegexShim = new Lazy<Regex>(EndingWithLanguageTagRegex);
+            StartingWithDoubleQuotationMarkShim = new Lazy<Regex>(StartingWithDoubleQuotationMarkRegex);
+            EndingWithDoubleQuotationMarkShim = new Lazy<Regex>(EndingWithDoubleQuotationMarkRegex);
+            TurtleLongLiteralCharsRegexShim = new Lazy<Regex>(TurtleLongLiteralCharsRegex);
+            EightByteUnicodeRegexShim = new Lazy<Regex>(EightByteUnicodeRegex);
+            FourByteUnicodeRegexShim = new Lazy<Regex>(FourByteUnicodeRegex);
+            HexBinaryRegexShim = new Lazy<Regex>(HexBinaryRegex);
+            OwlRationalRegexShim = new Lazy<Regex>(OwlRationalRegex);
+            NTriplesBPBRegexShim = new Lazy<Regex>(NTriplesBPBRegex);
+            NTriplesBPORegexShim = new Lazy<Regex>(NTriplesBPORegex);
+            NTriplesBPLRegexShim = new Lazy<Regex>(NTriplesBPLRegex);
+            NTriplesBPLLRegexShim = new Lazy<Regex>(NTriplesBPLLRegex);
+            NTriplesBPLTRegexShim = new Lazy<Regex>(NTriplesBPLTRegex);
+            NTriplesSPBRegexShim = new Lazy<Regex>(NTriplesSPBRegex);
+            NTriplesSPORegexShim = new Lazy<Regex>(NTriplesSPORegex);
+            NTriplesSPLRegexShim = new Lazy<Regex>(NTriplesSPLRegex);
+            NTriplesSPLLRegexShim = new Lazy<Regex>(NTriplesSPLLRegex);
+            NTriplesSPLTRegexShim = new Lazy<Regex>(NTriplesSPLTRegex);
 #else
             PrefixRegexShim = new Lazy<Regex>(() => new Regex(PrefixRegexMask, RegexOptions.Compiled));
             LanguageTagRegexShim = new Lazy<Regex>(() => new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase));
