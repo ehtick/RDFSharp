@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 using RDFSharp.Model;
 
@@ -29,18 +28,6 @@ namespace RDFSharp.Store
     /// </summary>
     internal static class RDFNQuads
     {
-        #region Properties
-        /// <summary>
-        /// Regex to detect S->P->B->L(TYPED) form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> SPLC_TLIT = new Lazy<Regex>(() => new Regex(@"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-
-        /// <summary>
-        /// Regex to detect B->P->L(TYPED)->C form of N-Quad
-        /// </summary>
-        internal static readonly Lazy<Regex> BPLC_TLIT = new Lazy<Regex>(() => new Regex(@"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*<[^<>\s]+>\s*\.$", RegexOptions.Compiled));
-        #endregion
-
         #region Methods
 
         #region Write
@@ -429,7 +416,7 @@ namespace RDFSharp.Store
                 }
 
                 //S->P->L(TLIT)->C
-                if (SPLC_TLIT.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsSPLTCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t', '>');
 
@@ -671,7 +658,7 @@ namespace RDFSharp.Store
                 }
 
                 //B->P->L(TLIT)->C
-                if (BPLC_TLIT.Value.Match(nquad).Success)
+                if (RDFStoreShims.NQuadsBPLTCRegexShim.Value.Match(nquad).Success)
                 {
                     nquad = nquad.Trim('.', ' ', '\t', '>');
 
