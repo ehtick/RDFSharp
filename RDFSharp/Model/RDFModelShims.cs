@@ -34,12 +34,16 @@ namespace RDFSharp.Model
         internal const string FourByteUnicodeRegexMask = @"\\u([0-9A-Fa-f]{4})";
         internal const string HexBinaryRegexMask = "^([0-9a-fA-F]{2})*$";
         internal const string OwlRationalRegexMask = "^(0|(-)?([1-9])+([0-9])*)(/([1-9])+([0-9])*)?$";
-        internal const string NTriplesBPBRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*\.$";
-        internal const string NTriplesBPORegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
-        internal const string NTriplesBPLRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*\.$";
-        internal const string NTriplesSPBRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*\.$";
-        internal const string NTriplesSPORegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
-        internal const string NTriplesSPLRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*\.$";
+        internal const string NTriplesBPBRegexMask  = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*_:[^<>\s]+\s*\.$";
+        internal const string NTriplesBPORegexMask  = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NTriplesBPLRegexMask  = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\s*\.$";
+        internal const string NTriplesBPLLRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""@" + LanguageTagRegexMask + @"\s*\.$";
+        internal const string NTriplesBPLTRegexMask = @"^_:[^<>\s]+\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*\.$";
+        internal const string NTriplesSPBRegexMask  = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*\.$";
+        internal const string NTriplesSPORegexMask  = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NTriplesSPLRegexMask  = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*\.$";
+        internal const string NTriplesSPLLRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""@" + LanguageTagRegexMask + @"\s*\.$";
+        internal const string NTriplesSPLTRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\^\^<[^<>\s]+>\s*\.$";
         #endregion
 
         #region Ctors
@@ -56,9 +60,13 @@ namespace RDFSharp.Model
             NTriplesBPBRegexShim = NTriplesBPBRegex();
             NTriplesBPORegexShim = NTriplesBPORegex();
             NTriplesBPLRegexShim = NTriplesBPLRegex();
+            NTriplesBPLLRegexShim = NTriplesBPLLRegex();
+            NTriplesBPLTRegexShim = NTriplesBPLTRegex();
             NTriplesSPBRegexShim = NTriplesSPBRegex();
             NTriplesSPORegexShim = NTriplesSPORegex();
             NTriplesSPLRegexShim = NTriplesSPLRegex();
+            NTriplesSPLLRegexShim = NTriplesSPLLRegex();
+            NTriplesSPLTRegexShim = NTriplesSPLTRegex();
 #else
             PrefixRegexShim = new Regex(PrefixRegexMask, RegexOptions.Compiled);
             LanguageTagRegexShim = new Regex("^" + LanguageTagRegexMask + "$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -70,9 +78,13 @@ namespace RDFSharp.Model
             NTriplesBPBRegexShim = new Regex(NTriplesBPBRegexMask, RegexOptions.Compiled);
             NTriplesBPORegexShim = new Regex(NTriplesBPORegexMask, RegexOptions.Compiled);
             NTriplesBPLRegexShim = new Regex(NTriplesBPLRegexMask, RegexOptions.Compiled);
+            NTriplesBPLLRegexShim = new Regex(NTriplesBPLLRegexMask, RegexOptions.Compiled);
+            NTriplesBPLTRegexShim = new Regex(NTriplesBPLTRegexMask, RegexOptions.Compiled);
             NTriplesSPBRegexShim = new Regex(NTriplesSPBRegexMask, RegexOptions.Compiled);
             NTriplesSPORegexShim = new Regex(NTriplesSPORegexMask, RegexOptions.Compiled);
             NTriplesSPLRegexShim = new Regex(NTriplesSPLRegexMask, RegexOptions.Compiled);
+            NTriplesSPLLRegexShim = new Regex(NTriplesSPLLRegexMask, RegexOptions.Compiled);
+            NTriplesSPLTRegexShim = new Regex(NTriplesSPLTRegexMask, RegexOptions.Compiled);
 #endif
         }
         #endregion
@@ -88,9 +100,13 @@ namespace RDFSharp.Model
         internal static Regex NTriplesBPBRegexShim { get; }
         internal static Regex NTriplesBPORegexShim { get; }
         internal static Regex NTriplesBPLRegexShim { get; }
+        internal static Regex NTriplesBPLLRegexShim { get; }
+        internal static Regex NTriplesBPLTRegexShim { get; }
         internal static Regex NTriplesSPBRegexShim { get; }
         internal static Regex NTriplesSPORegexShim { get; }
         internal static Regex NTriplesSPLRegexShim { get; }
+        internal static Regex NTriplesSPLLRegexShim { get; }
+        internal static Regex NTriplesSPLTRegexShim { get; }
         #endregion
 
         #region Methods
@@ -127,12 +143,20 @@ namespace RDFSharp.Model
         private static partial Regex NTriplesBPORegex();
         [GeneratedRegex(NTriplesBPLRegexMask)]
         private static partial Regex NTriplesBPLRegex();
+        [GeneratedRegex(NTriplesBPLLRegexMask)]
+        private static partial Regex NTriplesBPLLRegex();
+        [GeneratedRegex(NTriplesBPLTRegexMask)]
+        private static partial Regex NTriplesBPLTRegex();
         [GeneratedRegex(NTriplesSPBRegexMask)]
         private static partial Regex NTriplesSPBRegex();
         [GeneratedRegex(NTriplesSPORegexMask)]
         private static partial Regex NTriplesSPORegex();
         [GeneratedRegex(NTriplesSPLRegexMask)]
         private static partial Regex NTriplesSPLRegex();
+        [GeneratedRegex(NTriplesSPLLRegexMask)]
+        private static partial Regex NTriplesSPLLRegex();
+        [GeneratedRegex(NTriplesSPLTRegexMask)]
+        private static partial Regex NTriplesSPLTRegex();
 #endif
     }
 }
