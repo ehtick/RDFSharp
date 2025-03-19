@@ -14,7 +14,6 @@
    limitations under the License.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
@@ -37,11 +36,6 @@ namespace RDFSharp.Query
         /// Language to be filtered
         /// </summary>
         public string Language { get; internal set; }
-
-        /// <summary>
-        /// Regex to intercept values having any language tag
-        /// </summary>
-        internal static readonly Lazy<Regex> AnyLanguageRegex = new Lazy<Regex>(() => new Regex(string.Concat("@", RDFModelShims.LanguageTagRegexMask, "$"), RegexOptions.Compiled | RegexOptions.IgnoreCase));
 
         /// <summary>
         /// Regex to intercept values having specific language tag
@@ -100,12 +94,12 @@ namespace RDFSharp.Query
                 {
                     //NO language is acceptable in the variable
                     case "":
-                        keepRow = !AnyLanguageRegex.Value.IsMatch(variableValue);
+                        keepRow = !RDFModelShims.EndingWithLanguageTagRegexShim.Value.IsMatch(variableValue);
                         break;
 
                     //ANY language is acceptable in the variable
                     case "*":
-                        keepRow = AnyLanguageRegex.Value.IsMatch(variableValue);
+                        keepRow = RDFModelShims.EndingWithLanguageTagRegexShim.Value.IsMatch(variableValue);
                         break;
 
                     //GIVEN language is acceptable in the variable
