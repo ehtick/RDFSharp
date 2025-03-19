@@ -26,6 +26,8 @@ namespace RDFSharp.Store
     {
         #region Constants
         internal const string NQuadsSPBCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*_:[^<>\s]+\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsSPOCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*<[^<>\s]+>\s*\.$";
+        internal const string NQuadsSPLCRegexMask = @"^<[^<>\s]+>\s*<[^<>\s]+>\s*\""(.)*\""\s*<[^<>\s]+>\s*\.$";
         #endregion
 
         #region Ctors
@@ -33,19 +35,31 @@ namespace RDFSharp.Store
         {
 #if NET8_0_OR_GREATER
             NQuadsSPBCRegexShim = new Lazy<Regex>(NQuadsSPBCRegex);
+            NQuadsSPOCRegexShim = new Lazy<Regex>(NQuadsSPOCRegex);
+            NQuadsSPLCRegexShim = new Lazy<Regex>(NQuadsSPLCRegex);
 #else
             NQuadsSPBCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPBCRegexMask, RegexOptions.Compiled));
+            NQuadsSPOCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPOCRegexMask, RegexOptions.Compiled));
+            NQuadsSPLCRegexShim = new Lazy<Regex>(() => new Regex(NQuadsSPLCRegexMask, RegexOptions.Compiled));
 #endif
         }
         #endregion
 
         #region Properties
         internal static Lazy<Regex> NQuadsSPBCRegexShim { get; }
+        internal static Lazy<Regex> NQuadsSPOCRegexShim { get; }
+        internal static Lazy<Regex> NQuadsSPLCRegexShim { get; }
         #endregion
 
 #if NET8_0_OR_GREATER
         [GeneratedRegex(NQuadsSPBCRegexMask)]
         private static partial Regex NQuadsSPBCRegex();
+
+        [GeneratedRegex(NQuadsSPOCRegexMask)]
+        private static partial Regex NQuadsSPOCRegex();
+
+        [GeneratedRegex(NQuadsSPLCRegexMask)]
+        private static partial Regex NQuadsSPLCRegex();
 #endif
     }
 }
