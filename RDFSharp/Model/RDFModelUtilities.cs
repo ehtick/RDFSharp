@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -555,12 +554,6 @@ namespace RDFSharp.Model
             switch (datatype)
             {
                 #region STRING CATEGORY
-                case RDFModelEnums.RDFDatatypes.RDFS_LITERAL:
-                case RDFModelEnums.RDFDatatypes.XSD_STRING:
-                case RDFModelEnums.RDFDatatypes.RDF_HTML:
-                default:
-                    return (true, literalValue);
-
                 case RDFModelEnums.RDFDatatypes.RDF_XMLLITERAL:
                     try
                     {
@@ -910,6 +903,8 @@ namespace RDFSharp.Model
 
                     return (false, literalValue);
                 #endregion
+
+                default: return (true, literalValue);
             }
         }
 
