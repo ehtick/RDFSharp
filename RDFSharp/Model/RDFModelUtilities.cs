@@ -59,6 +59,11 @@ namespace RDFSharp.Model
         internal static readonly string[] AlternativesBoolFalse = { "0", "zero", "no", "n", "f", "off", "ko", "down" };
 
         /// <summary>
+        /// Characters which must be avoided by any valid xsd:normalizedString literals
+        /// </summary>
+        internal static readonly char[] NormalizedStringSentinelChars = { '\n', '\r', '\t' };
+
+        /// <summary>
         /// Gets the Uri corresponding to the given string
         /// </summary>
         internal static Uri GetUriFromString(string uriString)
@@ -630,8 +635,7 @@ namespace RDFSharp.Model
                     catch { return (false, literalValue); }
 
                 case RDFModelEnums.RDFDatatypes.XSD_NORMALIZEDSTRING:
-                    bool isValidNormalizedString = literalValue.IndexOfAny(new[] { '\n', '\r', '\t' }) == -1;
-                    return (isValidNormalizedString, literalValue);
+                    return (literalValue.IndexOfAny(NormalizedStringSentinelChars) == -1, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_LANGUAGE:
                     bool isValidLanguage = RDFModelShims.LanguageTagRegexShim.Value.Match(literalValue).Success;
