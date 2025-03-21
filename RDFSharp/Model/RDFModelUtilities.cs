@@ -638,8 +638,7 @@ namespace RDFSharp.Model
                     return (literalValue.IndexOfAny(NormalizedStringSentinelChars) == -1, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_LANGUAGE:
-                    bool isValidLanguage = RDFModelShims.LanguageTagRegexShim.Value.Match(literalValue).Success;
-                    return (isValidLanguage, literalValue);
+                    return (RDFModelShims.LanguageTagRegexShim.Value.Match(literalValue).Success, literalValue);
 
                 case RDFModelEnums.RDFDatatypes.XSD_BASE64BINARY:
                     try
